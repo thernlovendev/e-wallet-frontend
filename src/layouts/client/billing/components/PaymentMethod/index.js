@@ -121,9 +121,6 @@ function PaymentMethod() {
     if(controller.user.stripe.customerID.length < 1){
       SweetAlert("warning", "Ooops", "You must finish the activation proccess, go to account and then to personal information for more info")
     }else{
-      if(!selectedCard){
-        SweetAlert("warning", "Ooops", "You must select a Card")
-      }else{
         await addMoney2(controller.user.id, amount, selectedCard, currency, localAmount).then(async (user) => {
           await setAction("charge")
           console.log(action)
@@ -137,7 +134,6 @@ function PaymentMethod() {
             SweetAlert("warning", "Ooops", "Something went wrong")
           }
         })
-      }
     }
   }
 
