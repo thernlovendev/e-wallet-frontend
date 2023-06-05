@@ -342,7 +342,7 @@ function PaymentMethod() {
             <div class="row">
               <div class="form-group col-12">
                 <label for="">Select Card</label>
-                <select class="form-control" name="selectedCard" onChange={handleChange} >
+                <select class="form-control" name="selectedCard" onClick={handleChange} onChange={handleChange} >
                   {controller.user.cards.map(card => {
                     return(
                       <option value={card.id} >****** {card.last4}</option>
