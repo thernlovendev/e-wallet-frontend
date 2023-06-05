@@ -51,7 +51,7 @@ function PaymentMethod() {
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
-  const [selectedCard, setSelectedCard] = useState(controller.user.cards[0].id);
+  const [selectedCard, setSelectedCard] = useState();
   const [action, setAction] = useState("");
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
