@@ -121,9 +121,7 @@ function PaymentMethod() {
     if(controller.user.stripe.customerID.length < 1){
       SweetAlert("warning", "Ooops", "You must finish the activation proccess, go to account and then to personal information for more info")
     }else{
-      if(!selectedCard){
-        SweetAlert("warning", "Ooops", "You must select a Card")
-      }else{
+        console.log(selectedCard)
         await addMoney2(controller.user.id, amount, selectedCard, currency, localAmount).then(async (user) => {
           await setAction("charge")
           console.log(action)
@@ -137,7 +135,6 @@ function PaymentMethod() {
             SweetAlert("warning", "Ooops", "Something went wrong")
           }
         })
-      }
     }
   }
 
@@ -345,7 +342,7 @@ function PaymentMethod() {
                 <select class="form-control" name="selectedCard" onChange={handleChange} >
                   {controller.user.cards.map(card => {
                     return(
-                      <option value={card.id} >****** {card.last4}</option>
+                      <option value={card.id}>****** {card.last4}</option>
                     )
                   })}
                 </select>
