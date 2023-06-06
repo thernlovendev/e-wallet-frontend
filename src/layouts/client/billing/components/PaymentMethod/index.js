@@ -51,7 +51,7 @@ function PaymentMethod() {
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
-  const [selectedCard, setSelectedCard] = useState();
+  const [selectedCard, setSelectedCard] = useState("asd");
   const [action, setAction] = useState("");
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
@@ -121,7 +121,6 @@ function PaymentMethod() {
     if(controller.user.stripe.customerID.length < 1){
       SweetAlert("warning", "Ooops", "You must finish the activation proccess, go to account and then to personal information for more info")
     }else{
-        console.log(selectedCard)
         await addMoney2(controller.user.id, amount, selectedCard, currency, localAmount).then(async (user) => {
           await setAction("charge")
           console.log(action)
@@ -339,7 +338,7 @@ function PaymentMethod() {
             <div class="row">
               <div class="form-group col-12">
                 <label for="">Select Card</label>
-                <select class="form-control" name="selectedCard" onChange={handleChange} >
+                <select class="form-control" name="selectedCard" onClick={handleChange} onChange={handleChange} >
                   {controller.user.cards.map(card => {
                     return(
                       <option value={card.id}>****** {card.last4}</option>

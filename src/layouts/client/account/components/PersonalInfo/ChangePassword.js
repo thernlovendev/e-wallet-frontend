@@ -47,7 +47,7 @@ export default function ChangePassword() {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <h5 class="mt-5">Password requirements</h5>
+          <h5 class="mt-5">Password Requirements</h5>
           <p class="text-muted mb-2">Please follow this guide for a strong password:</p>
           <ul class="text-muted ps-4 mb-0 float-start">
             <li>

@@ -69,7 +69,7 @@ function SignUp() {
   
     // Name validation
     if (!formData.name) {
-      errors.name = "Name is required";
+      errors.name = "Firstname is required";
       errors.error = true;
       await SweetAlert("warning", "Ooops", "Name is required")
       return false
@@ -77,7 +77,7 @@ function SignUp() {
   
     // Last name validation
     if (!formData.lastName) {
-      errors.lastName = "Last name is required";
+      errors.lastName = "Lastname is required";
       errors.error = true;
       await SweetAlert("warning", "Ooops", "Last name is required")
       return false

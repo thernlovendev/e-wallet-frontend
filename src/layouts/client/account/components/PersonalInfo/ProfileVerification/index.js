@@ -104,7 +104,7 @@ function ProfileVerification () {
         </SoftBox>
         <SoftBox my={2}>
           <SoftTypography variant="h6" fontWeight="bold" color="text">
-            ID
+            Passport or ID Number
           </SoftTypography>
           <SoftInput
             type="text"

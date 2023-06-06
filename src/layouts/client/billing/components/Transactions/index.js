@@ -64,20 +64,6 @@ function Transactions() {
               />
             )
           })}
-          <Transaction
-            color="error"
-            icon="arrow_downward"
-            name="Netflix"
-            description="27 March 2020, at 12:30 PM"
-            value="- $ 2,500"
-          />
-          <Transaction
-            color="success"
-            icon="arrow_upward"
-            name="Apple"
-            description="27 March 2020, at 04:30 AM"
-            value="+ $ 2,000"
-          />
         </SoftBox>
       </SoftBox>
     </Card>
