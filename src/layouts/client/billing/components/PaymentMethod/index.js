@@ -187,7 +187,7 @@ function PaymentMethod() {
       addBanckAccount(controller.user.id, accountNumber).then(async (user) => {
         await setUser(dispatch, user)
         toggleAddBanckAccount();
-        SweetAlert("success", "All good", "Banck Account added")
+        SweetAlert("success", "All good", "Bank Account added")
       }).catch(error => {
         if (error === 400){
           SweetAlert("warning", "Ooops", "Wrong account data")
@@ -252,7 +252,7 @@ function PaymentMethod() {
       confirmCodeWithdraw(controller.user.id, confirmCode).then(user => {
         setUser(dispatch, user)
         toggleConfirmCode();
-        SweetAlert("success", "All good", "Money sent to your banck account")
+        SweetAlert("success", "All good", "Money sent to your bank account")
       }).catch(error => {
         if(error === 400){
           SweetAlert("warning", "Ooops", "Wrong confirmation code")
@@ -288,11 +288,11 @@ function PaymentMethod() {
           </SoftButton>
           <SoftButton variant="gradient" color="primary" onClick={toggleAddBanckAccount}>
             <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-            &nbsp;Add a Banck Account
+            &nbsp;Add Bank Account
           </SoftButton>
           <SoftButton variant="gradient" color="dark" onClick={toggleAddCard}>
             <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-            &nbsp;Add a credit card
+            &nbsp;Add Debit Card
           </SoftButton>
           <SoftButton variant="gradient" color="dark" onClick={toggleWithdraw}>
             <Icon sx={{ fontWeight: "bold" }}>shopping_cart</Icon>
