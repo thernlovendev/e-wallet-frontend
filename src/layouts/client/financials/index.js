@@ -11,7 +11,7 @@ import CountryTransactions from "./components/Account";
 import usImg from "assets/img/us.png";
 import gbImg from "assets/img/gb96.png"
 import SoftTypography from "components/SoftTypography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SoftButton from "components/SoftButton";
 import SoftModal from "components/SoftModal";
 import { useSoftUIController } from "context";
@@ -19,6 +19,10 @@ import { useSoftUIController } from "context";
 function Accounts({ title, bgColor, icon }) {
   const [newAcc, setNewAcc] = useState(false);
   const [controller, dispatch] = useSoftUIController();
+
+  useEffect(() => {
+
+  }, [controller])
 
   const toggleNewAccount = () => setNewAcc((prev) => !prev);
   return (
