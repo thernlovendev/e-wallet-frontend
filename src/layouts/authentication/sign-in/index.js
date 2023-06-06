@@ -51,7 +51,7 @@ function SignIn() {
         SweetAlert("warning", "Ooops", "No user with that email or wrong password")
       }
       else{
-        SweetAlert("warning", "Ooops", "Sometingh go wrong")
+        SweetAlert("warning", "Ooops", "Something go wrong")
       }
       console.log(error);
     })
