@@ -34,7 +34,7 @@ function Transactions() {
     <Card sx={{ height: "100%" }}>
       <SoftBox display="flex" justifyContent="space-between" alignItems="center" pt={3} px={2}>
         <SoftTypography variant="h6" fontWeight="medium" textTransform="capitalize">
-          Recent Transaction&apos;s
+          Recent Transactions
         </SoftTypography>
         <SoftBox display="flex" alignItems="flex-start">
 {/*          <SoftBox color="text" mr={0.5} lineHeight={0}>
