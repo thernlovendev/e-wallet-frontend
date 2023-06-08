@@ -11,10 +11,24 @@ import SoftTypography from "components/SoftTypography";
 import Transaction from "layouts/client/billing/components/Transaction";
 
 import { useSoftUIController } from "context";
+import { useEffect, useState } from "react";
 
 function Transactions() {
 
   const [controller, dispatch] = useSoftUIController();
+  const [transactions , setTransactions] = useState([])
+
+  useEffect(() => {
+    controller.user.transactions.sort(function (a, b) {
+      if(a.date > b.date) {
+        return -1;
+      }
+      if(a.datev < b.date){
+        return 1;
+      }
+      return 0;
+    })
+  },[controller])
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -60,7 +74,7 @@ function Transactions() {
                 icon={transaction.action === "charge" ? "arrow_upward" : "arrow_downward"}
                 name= {transaction.action.toUpperCase() + " " + transaction.currency}
                 description={transaction.date}
-                value= {transaction.amount}
+                value= {transaction.currency + " " + transaction.amount}
               />
             )
           })}
