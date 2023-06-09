@@ -1,67 +1,89 @@
-import { useState, useEffect } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
-import PropTypes from "prop-types";
+import SoftBox from "components/SoftBox"
 import SoftButton from "components/SoftButton";
-import { Icon } from "@mui/material";
+import SoftInput from "components/SoftInput";
+import SoftModal from "components/SoftModal";
+import SoftTypography from "components/SoftTypography";
+import { useEffect, useState } from "react";
 
 
-const EditPhone = ({SHOW, onSave, set}) => {
+export default function EditPhone ({show, onSave, reSend}) {
+    const [phone, setPhone] = useState(0);
+    const [countryCode, setCountryCode] = useState(0);
+    const [showCode, setShowCode] = useState(false);
+    const [Show, setShow] = useState(show);
 
-    const [show, setShow] = useState(SHOW);
-    const [code, setCode] = useState(0)
 
-    useEffect(()=> {
-        console.log(SHOW)
-        console.log(show)
-    }, [SHOW])
 
-    const handleClose = () => {
-        setShow(false)
-        set(false)
-    }
-
-    const handleShow = () => {
-        setShow(true)
-    }
-
-    const handleFormChange = (e) => {
-        if(e.target.name === "code"){
-            setCode(e.target.value)
+    const handleChange = (e) => {
+        if(e.target.name === "phone"){
+            setPhone(e.target.value)
+        }
+        if(e.target.name === "countryCode"){
+            setCountryCode(e.target.value)
         }
     }
 
-    const handleSave = () => {
-        onSave(code)
+    const handleShow = () => {
+        setShow(false)
     }
 
+    const handleSave = () => {
+        onSave()
+    }
+
+
     return(
-        <>
-            <div id="sendSMS"/>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Tipe in the number we just send you in a sms</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group >
-                            <Form.Label>Number in the SMS</Form.Label>
-                            <Form.Control name="code" type="number" onChange={handleFormChange}/>
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={handleSave}>
-                        Sumbit Code
-                    </Button>
-                    <Button variant="primary" onClick={handleSave}>
-                        Re-Send Code
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-            
-        </>
-    );
-
-};
-
-export default EditPhone;
+        <SoftModal
+        header="Edit your CellPhone number"
+        //toggle={toggleAddMoney}
+        open={Show}
+        body={
+          <>
+            <div class="row mt-2">
+              <div class="form-group col-10">
+                <input
+                  type="number"
+                  class="form-control"
+                  name="phone"
+                  placeholder="SMS code"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <SoftBox display="flex" gap="5px" >
+                <SoftTypography variant="h6" fontWeight="medium">
+                    Change your CellPhone
+                </SoftTypography>
+                <SoftInput
+                    min="1"
+                    type="number"
+                    placeholder="country code"
+                    name="countryCode"
+                    onChange={handleChange}
+                />
+                <SoftInput
+                    min="1"
+                    type="number"
+                    placeholder="cellphone number"
+                    name="phone"
+                    onChange={handleChange}
+                />
+            </SoftBox>
+          </>
+        }
+        footer={
+          <SoftBox display="flex" gap="5px">
+            <SoftButton component="button" color={"secondary"} onClick={handleShow}>
+              Cancel
+            </SoftButton>
+            <SoftButton component="button" color={"success"} onClick={handleSave} >
+              Confirm Code
+            </SoftButton>
+            <SoftButton component="button" color={"success"} onClick={reSend} >
+              Re-Send Code
+            </SoftButton>
+          </SoftBox>
+        }
+      />
+    )
+}
