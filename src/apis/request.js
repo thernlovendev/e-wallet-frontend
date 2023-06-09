@@ -322,7 +322,7 @@
     console.log(data)
     return(
       new Promise(async(res,rej)=> {
-        fetch("http://localhost:4242/chargeMoney2",{
+        fetch("https://radiant-gorge-42555.herokuapp.com/chargeMoney2",{
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -637,7 +637,7 @@
     }
     return(
       new Promise (async (res, rej) => {
-        fetch("http://localhost:4242/confirmCodeWithdraw", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/confirmCodeWithdraw", {
           method: "POST",
           headers: {
               "Content-Type" : "application/json"

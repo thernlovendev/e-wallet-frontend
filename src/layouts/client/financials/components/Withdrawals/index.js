@@ -1,14 +1,77 @@
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import SoftBox from "components/SoftBox";
-import { Card } from "@mui/material";
+import { Card, Checkbox } from "@mui/material";
 import SoftTypography from "components/SoftTypography";
 import Table from "examples/Tables/Table";
 import { Visibility } from "@mui/icons-material";
 import withdrawalsTableData from "./withdrawalsTableData";
+import { useSoftUIController } from "context";
+import { useEffect, useState } from "react";
 
 function Withdrawals() {
-  const { columns, rows } = withdrawalsTableData;
+  const [controller, dispatch] = useSoftUIController();
+  const [columns2, setColumns2] = useState([
+    {name: "AMOUNT", align: "left"},
+    {name: "DESCRIPTION", align: "left"},
+    { name: "RECEPTIANT", align: "left" },
+    { name: "ID", align: "left" },
+    { name: "DATE", align: "left" },
+    { name: "STATE", align: "center" },
+    { name: "action", align: "center" },
+  ]);
+  const [rows2, setRows2] = useState([]);
+
+  function AmountField({ amount }) {
+    return (
+      <SoftBox px={1}>
+        <Checkbox />
+        <SoftTypography pl={1} variant="button" fontWeight="medium">
+          {amount}
+        </SoftTypography>
+      </SoftBox>
+    );
+  }
+
+  useEffect(() => {
+    async function x() {
+      const rows = await controller.user.transactions.map((transaction) => {
+        if(transaction.action === "withdraw") {
+          return {
+            AMOUNT: <AmountField amount={transaction.currency + " " +  transaction.amount} />,
+            DESCRIPTION: (
+              <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+                {transaction.action}
+              </SoftTypography>
+            ),
+            RECEPTIANT: (
+              <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+                {transaction.userInteraction}
+              </SoftTypography>
+            ),
+            ID: (
+              <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+                {transaction.id}
+              </SoftTypography>
+            ),
+            DATE: (
+              <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+                {transaction.date}
+              </SoftTypography>
+            ),
+            STATE: (
+              <SoftTypography variant="caption" color={transaction.status === "success" || transaction.status === "succeeded" ? "success" : "error" } fontWeight="medium">
+                {transaction.status}
+              </SoftTypography>
+            )
+          }
+        }
+      }).filter((item) => item !== undefined)
+      await setRows2(rows);
+      console.log(rows2)
+    }
+    x();
+  },[controller])
 
   function Actions() {
     return (
@@ -38,8 +101,8 @@ function Withdrawals() {
             }}
           >
             <Table
-              columns={columns}
-              rows={rows.map((item) => ({ ...item, action: <Actions /> }))}
+              columns={columns2}
+              rows={rows2.map((item) => ({ ...item, action: <Actions /> }))}
             />
           </SoftBox>
         </Card>
