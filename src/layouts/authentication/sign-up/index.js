@@ -265,8 +265,8 @@ function SignUp() {
             </SoftBox>
             <select id="country-select" name="country" onChange={handleFormChange}>
               <option value="">Select a country</option>
-              <option value="GB">Reino Unido</option>
-              <option value="US">Estados Unidos</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">The United States</option>
             </select>
             <SoftBox display="flex" alignItems="center">
               <Checkbox
