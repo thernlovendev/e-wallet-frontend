@@ -12,8 +12,10 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 
-// function Footer() {
-//   return (
+function Footer() {
+    return (
+        <></>
+    )
 //     <SoftBox component="footer" py={6}>
 //       <Grid container justifyContent="center">
 //         <Grid item xs={10} lg={8}>
@@ -77,6 +79,7 @@ import SoftTypography from "components/SoftTypography";
 //       </Grid>
 //     </SoftBox>
 //   );
-// }
+}
+
 
 export default Footer;
