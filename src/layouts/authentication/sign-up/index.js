@@ -49,10 +49,8 @@ function SignUp() {
       SignUpR(formData.email, formData.password, formData.name, formData.lastName, formData.phone, formData.country
         , formData.birthDay, formData.birthMonth, formData.birthYear).then(user =>{
         setUser(dispatch, user)
-        navegar("/account/personal-information")
-        console.log(user)
+        navegar("/activation-process")
       }).catch(error => {
-        console.log(error)
         if(error === 400){
           SweetAlert("warning", "Ooops", "Email already in use")
         }else{

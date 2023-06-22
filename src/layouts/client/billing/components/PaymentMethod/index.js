@@ -245,7 +245,7 @@ function PaymentMethod() {
           SweetAlert("warning", "Ooops", "Wrong confirmation code")
         }
         if(error === 404){
-
+          
         }
       })
     }else if(action === "withdraw" ){

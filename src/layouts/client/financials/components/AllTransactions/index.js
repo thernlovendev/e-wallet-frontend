@@ -22,6 +22,7 @@ function AllTransactions() {
     { name: "action", align: "center" },
   ]);
   const [rows2, setRows2] = useState([])
+  const [index, setIndex] = useState(0)
 
   function AmountField({ amount }) {
     return (

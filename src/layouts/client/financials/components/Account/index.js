@@ -17,7 +17,7 @@ import gbImg from "assets/img/gb96.png"
 import usImg from "assets/img/us.png"
 import eurImg from "assets/img/euro.png"
 
-function CountryTransactions({ bgColor, title, icon }) {
+function CountryTransactions({ bgColor, title, icon}) {
   const [menu, setMenu] = useState(null);
 
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);

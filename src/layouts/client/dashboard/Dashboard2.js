@@ -83,7 +83,7 @@ function Dashboard2() {
               <SoftBox mb={3}>
                 {/*<PaymentMethod />*/}
               </SoftBox>
-              <SoftBox mb={3}>
+              <SoftBox mb={2}>
                 {controller.user.stripeAccount ? <Transactions /> : <></>}
               </SoftBox>
 {/*              <SoftBox mb={3}>

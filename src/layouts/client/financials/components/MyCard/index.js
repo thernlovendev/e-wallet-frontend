@@ -11,43 +11,88 @@ import SoftTypography from "components/SoftTypography";
 import SoftModal from "components/SoftModal";
 import MasterCard from "examples/Cards/MasterCard";
 import Transactions from "layouts/client/billing/components/Transactions";
+import PlaceholderCard from "examples/Cards/PlaceholderCard";
+import SoftButton from "components/SoftButton";
+import { useSoftUIController } from "context";
+import { requestCreditCard } from "apis/request";
+import { setUser } from "context";
+import { SweetAlert } from "apis/sweetAlert";
 
 function MyCard({ title, bgColor, icon }) {
   const [newAcc, setNewAcc] = useState(false);
+  const [controller, dispatch] = useSoftUIController();
+
+  const handleCreditCardRequest = () => {
+    requestCreditCard(controller.user.id).then(async (user) => {
+      SweetAlert("success", "All good", "Card requested")
+      await setUser(dispatch, user)
+    }).catch(error => {
+      if(error === 404){
+        SweetAlert("warning", "Ooops", "Something went wrong")
+      }
+    })
+  }
 
   const toggleNewAccount = () => setNewAcc((prev) => !prev);
   return (
     <DashboardLayout>
       <SoftBox py={3}>
         <SoftBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} xl={4}>
-              <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
-            </Grid>
+          <Grid container spacing={2}>
+            {controller.user.stripeCard.length > 0 ? controller.user.stripeCard.map(card => {
+              return(
+                card.id === "in revision" ? 
+                <Grid item xs={12} sm={6} xl={4}>
+                  <SoftBox
+                    height="100%"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    bgColor="dark"
+                    borderRadius="lg"
+                    variant="gradient"
+                    // flexDirection="row"
+                  ><SoftTypography height="100%"
+                    fontWeight="light"
+                    fontSize=".87em"
+                    color="white"
+                    variant="h6">In revision</SoftTypography></SoftBox>
+                </Grid> : 
+                <Grid item xs={12} sm={6} xl={4}>
+                <MasterCard id={card.id} number={"************" + card.last4} holder={controller.user.name + " " + controller.user.lastName} expires={card.exp_month.toString() + "/" + card.exp_year.toString()} />
+                </Grid>
+              )
+            }) :
             <Grid item xs={12} sm={6} xl={4}>
               <SoftBox
                 height="100%"
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                bgColor="primary"
+                bgColor="dark"
                 borderRadius="lg"
                 variant="gradient"
                 // flexDirection="row"
-                onClick={() => setNewAcc((prev) => !prev)}
               >
                 <Grid item>
-                  <SoftTypography
-                    component="h6"
+                  <SoftButton
+                    height="100%"
+                    component="h4"
                     fontWeight="light"
                     fontSize=".87em"
-                    color="white"
+                    color="dark"
+                    variant="gradient"
+                    onClick={handleCreditCardRequest}
                   >
-                    New Card
-                  </SoftTypography>
+                    Request a byzen credit card
+                  </SoftButton>
                 </Grid>
               </SoftBox>
-            </Grid>
+            </Grid>}
+{/*            <Grid item xs={12} sm={6} xl={4}>
+              <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
+            </Grid>*/}
+
           </Grid>
         </SoftBox>
         <Transactions />

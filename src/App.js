@@ -25,7 +25,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // Soft UI Dashboard React routes
-import routes from "routes";
+//import routes from "routes";
 
 // Soft UI Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -35,6 +35,7 @@ import brand from "assets/images/logo-ct.png";
 import config from "config";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import createRoutes from "routes";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -42,6 +43,8 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+
+  const routes = createRoutes(controller.user);
 
   // Cache for the rtl
   useMemo(() => {

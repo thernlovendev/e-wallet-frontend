@@ -21,7 +21,7 @@ function Received() {
     { name: "STATE", align: "center" },
     { name: "action", align: "center" },
   ]);
-  const [rows2, setRows2] = useState([])
+  const [rows2, setRows2] = useState([]);
 
   function AmountField({ amount }) {
     return (

@@ -194,7 +194,7 @@
     };
   
     return new Promise((resolve, reject) => {
-      fetch("https://radiant-gorge-42555.herokuapp.com/confirmAddress", {
+      fetch("http://localhost:4242/confirmAddress", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -637,7 +637,7 @@
     }
     return(
       new Promise (async (res, rej) => {
-        fetch("https://radiant-gorge-42555.herokuapp.com/confirmCodeWithdraw", {
+        fetch("http://localhost:4242/confirmCodeWithdraw", {
           method: "POST",
           headers: {
               "Content-Type" : "application/json"
@@ -685,7 +685,7 @@
     }
     return (
       new Promise (async (res, rej) => {
-        fetch("https://radiant-gorge-42555.herokuapp.com/SingIn2", {
+        fetch("http://localhost:4242/SingIn2", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -753,4 +753,87 @@
         console.log(data)
         return data
     })
+  }
+
+  export async function requestCreditCard (id) {
+    const data = {
+      id : id
+    }
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/creditCardRequest", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export async function aceptCard (id) {
+    const data = {
+      id : id
+    }
+    return(
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/confirmCreditCard", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function cancelCard (cardID, id, reason) {
+    const data = {
+      cardID : cardID,
+      id : id,
+      reason : reason
+    }
+    return(
+      new Promise(async (res, rej) => {
+        fetch("http://localhost:4242/cancelCardRequest", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
   }
