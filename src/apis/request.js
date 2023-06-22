@@ -193,30 +193,26 @@
       country: country
     };
   
-    return new Promise((resolve, reject) => {
-      fetch("http://localhost:4242/confirmAddress", {
+    return new Promise((res, rej) => {
+      fetch("https://radiant-gorge-42555.herokuapp.com/confirmAddress", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
       })
-        .then(response => {
-          if (response.status === 400) {
-            reject(400);
-          } else if (response.status !== 200) {
-            console.log(response.status, "h");
-            reject(401);
-          } else {
-            return response.json();
+        .then(data => {
+          if(data.status === 400){
+            rej(400)
           }
-        })
-        .then(jsonData => {
-          console.log(jsonData);
-          resolve(jsonData);
-        })
-        .catch(error => {
-          reject(error);
+          if(data.status != 200){
+            rej(404)
+          }else{
+            res(data.json())
+          }
+
+        }).catch(error => {
+          rej(error);
         });
     });
   }
@@ -637,7 +633,7 @@
     }
     return(
       new Promise (async (res, rej) => {
-        fetch("http://localhost:4242/confirmCodeWithdraw", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/confirmCodeWithdraw", {
           method: "POST",
           headers: {
               "Content-Type" : "application/json"
@@ -685,7 +681,7 @@
     }
     return (
       new Promise (async (res, rej) => {
-        fetch("http://localhost:4242/SingIn2", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/SingIn2", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -761,7 +757,7 @@
     }
     return (
       new Promise (async (res, rej) => {
-        fetch("http://localhost:4242/creditCardRequest", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/creditCardRequest", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -788,7 +784,7 @@
     }
     return(
       new Promise (async (res, rej) => {
-        fetch("http://localhost:4242/confirmCreditCard", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/confirmCreditCard", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -817,7 +813,7 @@
     }
     return(
       new Promise(async (res, rej) => {
-        fetch("http://localhost:4242/cancelCardRequest", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/cancelCardRequest", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"

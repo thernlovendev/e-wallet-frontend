@@ -42,6 +42,12 @@ export default function Address({onSave}) {
             await setUser(dispatch, user);
             SweetAlert("success", "All good", "Address verified");
             onSave();
+        }).catch(error => {
+            if (error === 400) {
+                SweetAlert("warning", "Ooops", "Wrong Address");
+            }else{
+                SweetAlert("warning", "Ooops", "Something went wrong");
+            }
         })
         
     }
