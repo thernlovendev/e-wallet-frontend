@@ -25,7 +25,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // Soft UI Dashboard React routes
-//import routes from "routes";
+import routes from "routes";
 
 // Soft UI Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -35,7 +35,9 @@ import brand from "assets/images/logo-ct.png";
 import config from "config";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import createRoutes from "routes";
+import PersonalInfo from "layouts/admin/UserInfo/PersonalInfo";
+import TransactionDetails from "layouts/admin/Transactions/Details";
+//import createRoutes from "routes";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -44,7 +46,7 @@ export default function App() {
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
 
-  const routes = createRoutes(controller.user);
+ // const routes = createRoutes(controller.user);
 
   // Cache for the rtl
   useMemo(() => {
@@ -138,7 +140,7 @@ export default function App() {
               onMouseLeave={handleOnMouseLeave}
             />
             {/*<Configurator />*/}
-            {configsButton}
+            {/*configsButton*/}
           </>
         )}
         {layout === "vr" && <Configurator />}
@@ -162,15 +164,16 @@ export default function App() {
             onMouseLeave={handleOnMouseLeave}
           />
           {/*<Configurator />*/}
-          {configsButton}
+          {/*configsButton*/}
         </>
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
         <Route path="/authentication/sign-in" element={<SignIn />} />
-        <Route path="/authentication/sign-up" element={<SignUp />} />
         <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+        <Route path="/dataUser/:id" element={<PersonalInfo />} />
+        <Route path="/transactionDetails/:id" element={<TransactionDetails />} />
       </Routes>
     </ThemeProvider>
   );

@@ -22,14 +22,14 @@ import configs from "examples/Charts/LineCharts/GradientLineChart/configs";
 // Soft UI Dashboard React base styles
 import colors from "assets/theme/base/colors";
 
-function GradientLineChart({ title, description, height, chart }) {
+function GradientLineChart({ title, description, height, labels, datasets }) {
   const chartRef = useRef(null);
   const [chartData, setChartData] = useState({});
   const { data, options } = chartData;
 
   useEffect(() => {
-    const chartDatasets = chart.datasets
-      ? chart.datasets.map((dataset) => ({
+    const chartDatasets = datasets
+      ? datasets.map((dataset) => ({
           ...dataset,
           tension: 0.4,
           pointRadius: 0,
@@ -46,8 +46,8 @@ function GradientLineChart({ title, description, height, chart }) {
         }))
       : [];
 
-    setChartData(configs(chart.labels || [], chartDatasets));
-  }, [chart]);
+    setChartData(configs(labels, chartDatasets));
+  }, [labels, datasets]);
 
   const renderChart = (
     <SoftBox p={2}>
@@ -87,11 +87,11 @@ GradientLineChart.defaultProps = {
 };
 
 // Typechecking props for the GradientLineChart
-GradientLineChart.propTypes = {
+/*GradientLineChart.propTypes = {
   title: PropTypes.string,
   description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   chart: PropTypes.objectOf(PropTypes.array).isRequired,
-};
+};*/
 
 export default GradientLineChart;

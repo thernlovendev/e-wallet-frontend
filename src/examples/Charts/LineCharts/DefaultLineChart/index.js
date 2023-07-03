@@ -18,6 +18,7 @@ import configs from "examples/Charts/LineCharts/DefaultLineChart/configs";
 
 // Soft UI Dashboard React base styles
 import colors from "assets/theme/base/colors";
+import faker from 'faker';
 
 function DefaultLineChart({ title, description, height, chart }) {
   const chartDatasets = chart.datasets
@@ -36,7 +37,39 @@ function DefaultLineChart({ title, description, height, chart }) {
       }))
     : [];
 
-  const { data, options } = configs(chart.labels || [], chartDatasets);
+  //const { data } = configs(chart.labels || [], chartDatasets);
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Dataset 2',
+        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
 
   const renderChart = (
     <SoftBox p={2}>

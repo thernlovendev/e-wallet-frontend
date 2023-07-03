@@ -50,6 +50,9 @@ function reducer(state, action) {
     case "SetDataCurrencys": {
       return{ ...state, currencys: action.value};
     }
+    case "SetTransactions": {
+      return{...state, transactions: action.value};
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -71,7 +74,8 @@ function SoftUIControllerProvider({ children }) {
     user: {
 
     },
-    currencys: []
+    currencys: [],
+    transactions: []
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -108,7 +112,8 @@ const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value })
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setCollapseKey = (dispatch, value) => dispatch({ type: "COLLAPSE_KEY", value });
 const setUser = (dispatch, value) => dispatch({ type:"SetDataUser", value});
-const setCurrencys = (dispatch, value) => dispatch({type: "SetDataCurrencys", value})
+const setCurrencys = (dispatch, value) => dispatch({type: "SetDataCurrencys", value});
+const setTransactions = (dispatch, value) => dispatch({type: "SetTransactions", value});
 
 export {
   SoftUIControllerProvider,
@@ -123,5 +128,6 @@ export {
   setLayout,
   setCollapseKey,
   setUser,
-  setCurrencys
+  setCurrencys,
+  setTransactions
 };

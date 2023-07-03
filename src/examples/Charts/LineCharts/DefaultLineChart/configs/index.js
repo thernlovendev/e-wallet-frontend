@@ -15,7 +15,7 @@ function configs(labels, datasets) {
           display: false,
         },
       },
-      interaction: {
+      /*interaction: {
         intersect: false,
         mode: "index",
       },
@@ -60,7 +60,7 @@ function configs(labels, datasets) {
             },
           },
         },
-      },
+      },*/
     },
   };
 }

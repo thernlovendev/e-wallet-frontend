@@ -21,534 +21,67 @@
 */
 
 // Soft UI Dashboard React layouts
-import Dashboard from "layouts/client/dashboard";
-import MyCard from "layouts/client/financials/components/MyCard";
-import Accounts from "layouts/client/financials";
-import PersonalInfo from "layouts/client/account/components/PersonalInfo";
 import MyTickets from "layouts/client/Help/MyTickets";
 import OpenTickets from "layouts/client/Help/OpenTicket";
 import FAQ from "layouts/client/Help/FAQ";
-import AllTransactions from "layouts/client/financials/components/AllTransactions";
-import Withdrawals from "layouts/client/financials/components/Withdrawals";
-import Received from "layouts/client/financials/components/Received";
-import Sent from "layouts/client/financials/components/Sent";
-import TopUps from "layouts/client/financials/components/TopUps";
+
 
 // Soft UI Dashboard React icons
-import { CreditCard, Help, Home, Person } from "@mui/icons-material";
+import { Help, Home } from "@mui/icons-material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import Dashboard2 from "layouts/client/dashboard/Dashboard2";
-import SoftButton from "components/SoftButton";
-import { useSoftUIController } from "context";
-import { aceptCard } from "apis/request";
-import { SweetAlert } from "apis/sweetAlert";
-import NewUser from "layouts/client/activationProcess";
+//import TransactionDetails from "layouts/client/financials/components/Details";
+import AdminDashboard from "layouts/admin/dashboard";
+import AdminTransactions from "layouts/admin/Transactions";
+import AdminReports from "layouts/admin/reports";
+import NewUser from "layouts/admin/NewUser";
+import AllTransactions from "layouts/admin/Transactions/AllTransactions";
 
-export default function createRoutes (user) {
-  //const [controller, dispatch] = useSoftUIController();
-  if(!user.stripeAccount){
-    return[
-      {
-        type:"collapse",
-        name: "Activation Process",
-        key: "activationa-process",
-        route: "/activation-process",
-        icon: null,
-        component: <NewUser />,
-        collapse: false,
-      },
-    ];
-  }else{
-    return[
-      {
-        type: "collapse",
-        name: "Dashboard",
-        key: "dashboard",
-        route: "/dashboard",
-        icon: <Home />,
-        component: <Dashboard2/>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Financials",
-        key: "financials",
-        icon: <CreditCard />,
-        route: "/financials",
-        collapse: [
-          {
-            type: "collapse",
-            name: "Account",
-            key: "account",
-            route: "/financials/account",
-            component: <Accounts />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "My Card",
-            key: "mycard",
-            route: "/financials/mycard",
-            component: <MyCard />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Transactions",
-            key: "transactions",
-            route: "/transactions",
-            collapse: [
-              {
-                type: "collapse",
-                name: "All Transactions",
-                key: "all-transactions",
-                route: "/financials/transactions/all-transactions",
-                component: <AllTransactions />,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Withdrwals",
-                key: "withdrwals",
-                route: "/financials/transactions/withdrwals",
-                component: <Withdrawals />,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Received",
-                key: "received",
-                route: "/financials/transactions/received",
-                component: <Received />,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Sent",
-                key: "sent",
-                route: "/financials/transactions/sent",
-                component: <Sent />,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Top Up's",
-                key: "topups",
-                route: "/financials/transactions/topups",
-                component: <TopUps />,
-                collapse: false,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "collapse",
-        name: "Account",
-        key: "account",
-        route: "/account",
-        icon: <Person />,
-        collapse: [
-          {
-            type: "collapse",
-            name: "Personal Information",
-            key: "personal-information",
-            route: "/account/personal-information",
-            component: <PersonalInfo />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Receptiants",
-            key: "receptiants",
-            route: "/account/receptiants",
-            component: <DefaultComponent>My Receptiants</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Refferals",
-            key: "refferals",
-            route: "/account/refferals",
-            component: <DefaultComponent>My Refferals</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Legal",
-            key: "legal",
-            route: "/account/legal",
-            collapse: [
-              {
-                type: "collapse",
-                name: "Privacy Policy",
-                key: "Privacy-Policy",
-                route: "/account/Privacy-Policy",
-                component: <DefaultComponent>My Privacy-Policy</DefaultComponent>,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Terms & Conditions",
-                key: "Terms&Conditions",
-                route: "/account/Terms&Conditions",
-                component: <DefaultComponent>My Terms&Conditions</DefaultComponent>,
-                collapse: false,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        type: "collapse",
-        name: "Help",
-        key: "help",
-        route: "/help",
-        icon: <Help />,
-        collapse: [
-          {
-            type: "collapse",
-            name: "Tickets",
-            key: "tickets",
-            route: "/help/tickets",
-            collapse: [
-              {
-                type: "collapse",
-                name: "My Tickets",
-                key: "my-tickets",
-                route: "/help/my-tickets",
-                component: <MyTickets />,
-                collapse: false,
-              },
-              {
-                type: "collapse",
-                name: "Open Tickets",
-                key: "open-tickets",
-                route: "/help/open-tickets",
-                component: <OpenTickets />,
-                collapse: false,
-              },
-            ],
-          },
-          {
-            type: "collapse",
-            name: "FAQ's",
-            key: "faqs",
-            route: "/help/faqs",
-            component: <FAQ />,
-            collapse: false,
-          },
-        ],
-      },
-      {
-        type: "collapse",
-        name: "Admin",
-        key: "admin",
-        route: "/admin/dashboard",
-        icon: <Home />,
-        collapse: [
-          {
-            type: "collapse",
-            name: "Dashboard",
-            key: "admin-dashboard",
-            route: "/admin/dashboard",
-            component: <DefaultComponent>Admin Dashboard</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Transactions",
-            key: "admin-transactions",
-            route: "/admin/transactions",
-            component: <DefaultComponent>Admin Transactions</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Reports",
-            key: "admin-reports",
-            route: "/admin/resports",
-            component: <DefaultComponent>Admin Reports</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "New User",
-            key: "admin-new-user",
-            route: "/admin/new-user",
-            component: <DefaultComponent>Admin New User</DefaultComponent>,
-            collapse: false,
-          },
-        ],
-      },
-    ]
-  }
-}
-
-//const routes = CreateRoutes()
- /*[
+const routes = [
   {
     type: "collapse",
     name: "Dashboard",
-    key: "dashboard",
-    route: "/dashboard",
-    icon: <Home />,
-    component: <Dashboard2/>,
+    key: "admin-dashboard",
+    route: "/admin/dashboard",
+    component: <AdminDashboard />,
     collapse: false,
   },
   {
     type: "collapse",
-    name: "Financials",
-    key: "financials",
-    icon: <CreditCard />,
-    route: "/financials",
+    name: "Transactions",
+    key: "admin-transactions",
+    route: "/admin/transactions",
+    component: <AdminTransactions />,
     collapse: [
       {
         type: "collapse",
-        name: "Account",
-        key: "account",
-        route: "/financials/account",
-        component: <Accounts />,
+        name: "All Transactions",
+        key: "all-transactions",
+        route: "/financials/transactions/all-transactions",
+        component: <AllTransactions />,
         collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "My Card",
-        key: "mycard",
-        route: "/financials/mycard",
-        component: <MyCard />,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Transactions",
-        key: "transactions",
-        route: "/transactions",
-        collapse: [
-          {
-            type: "collapse",
-            name: "All Transactions",
-            key: "all-transactions",
-            route: "/financials/transactions/all-transactions",
-            component: <AllTransactions />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Withdrwals",
-            key: "withdrwals",
-            route: "/financials/transactions/withdrwals",
-            component: <Withdrawals />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Received",
-            key: "received",
-            route: "/financials/transactions/received",
-            component: <Received />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Sent",
-            key: "sent",
-            route: "/financials/transactions/sent",
-            component: <Sent />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Top Up's",
-            key: "topups",
-            route: "/financials/transactions/topups",
-            component: <TopUps />,
-            collapse: false,
-          },
-        ],
-      },
+      }
     ],
   },
   {
-    type:"collapse",
-    name: "Activation Process",
-    key: "activationa-process",
-    route: "/activation-process",
-    icon: null,
+    type: "collapse",
+    name: "Reports",
+    key: "admin-reports",
+    route: "/admin/reports",
+    component: <AdminReports />,
+    collapse: false,
+  },
+  {
+    type: "collapse",
+    name: "New User",
+    key: "admin-new-user",
+    route: "/admin/new-user",
     component: <NewUser />,
     collapse: false,
   },
-  {
-    type: "collapse",
-    name: "Account",
-    key: "account",
-    route: "/account",
-    icon: <Person />,
-    collapse: [
-      {
-        type: "collapse",
-        name: "Personal Information",
-        key: "personal-information",
-        route: "/account/personal-information",
-        component: <PersonalInfo />,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Receptiants",
-        key: "receptiants",
-        route: "/account/receptiants",
-        component: <DefaultComponent>My Receptiants</DefaultComponent>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Refferals",
-        key: "refferals",
-        route: "/account/refferals",
-        component: <DefaultComponent>My Refferals</DefaultComponent>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Legal",
-        key: "legal",
-        route: "/account/legal",
-        collapse: [
-          {
-            type: "collapse",
-            name: "Privacy Policy",
-            key: "Privacy-Policy",
-            route: "/account/Privacy-Policy",
-            component: <DefaultComponent>My Privacy-Policy</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Terms & Conditions",
-            key: "Terms&Conditions",
-            route: "/account/Terms&Conditions",
-            component: <DefaultComponent>My Terms&Conditions</DefaultComponent>,
-            collapse: false,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    type: "collapse",
-    name: "Help",
-    key: "help",
-    route: "/help",
-    icon: <Help />,
-    collapse: [
-      {
-        type: "collapse",
-        name: "Tickets",
-        key: "tickets",
-        route: "/help/tickets",
-        collapse: [
-          {
-            type: "collapse",
-            name: "My Tickets",
-            key: "my-tickets",
-            route: "/help/my-tickets",
-            component: <MyTickets />,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Open Tickets",
-            key: "open-tickets",
-            route: "/help/open-tickets",
-            component: <OpenTickets />,
-            collapse: false,
-          },
-        ],
-      },
-      {
-        type: "collapse",
-        name: "FAQ's",
-        key: "faqs",
-        route: "/help/faqs",
-        component: <FAQ />,
-        collapse: false,
-      },
-    ],
-  },
-  {
-    type: "collapse",
-    name: "Admin",
-    key: "admin",
-    route: "/admin/dashboard",
-    icon: <Home />,
-    collapse: [
-      {
-        type: "collapse",
-        name: "Dashboard",
-        key: "admin-dashboard",
-        route: "/admin/dashboard",
-        component: <DefaultComponent>Admin Dashboard</DefaultComponent>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Transactions",
-        key: "admin-transactions",
-        route: "/admin/transactions",
-        component: <DefaultComponent>Admin Transactions</DefaultComponent>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "Reports",
-        key: "admin-reports",
-        route: "/admin/resports",
-        component: <DefaultComponent>Admin Reports</DefaultComponent>,
-        collapse: false,
-      },
-      {
-        type: "collapse",
-        name: "New User",
-        key: "admin-new-user",
-        route: "/admin/new-user",
-        component: <DefaultComponent>Admin New User</DefaultComponent>,
-        collapse: false,
-      },
-    ],
-  },
-];*/
+];
 
 function DefaultComponent(props) {
-
-  const [controller, dispatch] = useSoftUIController();
-
-  const handleAceptCard = () => {
-    console.log(controller.user.id)
-    aceptCard(controller.user.id).then(user => {
-      SweetAlert("success", "All good", "Card acepted")
-    }).catch(error => {
-      console.log(error)
-    })
-  }
-
-  return (
-    <>
-      <DashboardLayout>{props.children}
-      <SoftButton
-                    height="100%"
-                    component="h4"
-                    fontWeight="light"
-                    fontSize=".87em"
-                    color="dark"
-                    variant="gradient"
-                    onClick={handleAceptCard}
-                  >
-                    Acept the card
-                  </SoftButton>
-      </DashboardLayout>
-    </>
-    
-  );
+  return <DashboardLayout>{props.children}</DashboardLayout>;
 }
 
+export default routes;

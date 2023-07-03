@@ -41,7 +41,8 @@ function SignIn() {
 
   const handleSingIn = (e) => {
       e.preventDefault();
-      SingIn(singData.email, singData.password).then(async (data) =>{
+      navegar("/admin/dashboard")
+    /*  SingIn(singData.email, singData.password).then(async (data) =>{
       setUser(dispatch, data.user)
       setCurrencys(dispatch, data.currencys)
       navegar("/dashboard")
@@ -52,7 +53,7 @@ function SignIn() {
       else{
         SweetAlert("warning", "Ooops", "Something go wrong")
       }
-    })
+    })*/
   }
 
   return (

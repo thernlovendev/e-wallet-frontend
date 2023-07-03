@@ -833,3 +833,156 @@
       })
     )
   }
+
+  export function getTransactions () {
+    return(
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/getTransactions", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify()
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function getDashData () {
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/getDashData", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify()
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function getUsers () {
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/getUsers", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify()
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function getDataUser (id) {
+    const data = {
+      id: id
+    }
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/getDataUser", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function freezeUser (id) {
+    const data = {
+      id : id
+    }
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/freezeUser", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function getTransaction (id) {
+    const data = {
+      id : id
+    }
+    return (
+      new Promise (async (res, rej) => {
+        fetch("http://localhost:4242/getTransaction", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
