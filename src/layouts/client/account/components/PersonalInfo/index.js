@@ -32,7 +32,7 @@ function PersonalInfo() {
   const [checked, setChecked] = useState(false);
 
   const handleChange = async (event) => {
-    if(controller.user.identityVerifed && controller.user.phoneVerifed && controller.user.addessVerified){
+    if(controller.user.identityVerified && controller.user.phoneVerified && controller.user.addressVerified){
       await setChecked(true);
     }
     if(checked && controller.user.stripe.accountID.length < 1){
@@ -142,7 +142,7 @@ function PersonalInfo() {
                 </div>
               }
               <BasicInfo />
-              {controller.user.identityVerifed ? 
+              {controller.user.identityVerified ? 
                 <></> : 
                 <div style={{ marginTop: '20px' }}>
                   <ProfileVerification />

@@ -181,7 +181,7 @@ function PaymentMethod() {
   const handleAddBanckAccount = () => {
     if(controller.user.stripe.accountID.length < 1){
       SweetAlert("warning", "Ooops", "You must go to account and then to personal information and complete your activation proccess")
-    }else if(!controller.user.identityVerifed && !controller.user.phoneVerifed && !controller.user.addessVerified){
+    }else if(!controller.user.identityVerified && !controller.user.phoneVerified && !controller.user.addressVerified){
       SweetAlert("warning", "Ooops", "You must go to account and then to personal information and complete your activation proccess")
     }else{
       addBanckAccount(controller.user.id, accountNumber).then(async (user) => {

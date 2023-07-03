@@ -42,16 +42,19 @@ function SignIn() {
   const handleSingIn = (e) => {
       e.preventDefault();
       SingIn(singData.email, singData.password).then(async (data) =>{
-      setUser(dispatch, data.user)
-      setCurrencys(dispatch, data.currencys)
-      navegar("/dashboard")
-    }).catch(error => {
-      if(error === 400){
-        SweetAlert("warning", "Ooops", "No user with that email or wrong password")
-      }
-      else{
-        SweetAlert("warning", "Ooops", "Something go wrong")
-      }
+        console.log("sda")
+        console.log(data.user)
+        await setUser(dispatch, data.user)
+        await setCurrencys(dispatch, data.currencys)
+        navegar("/dashboard")
+      }).catch(error => {
+        console.log(error)
+        if(error === 400){
+          SweetAlert("warning", "Ooops", "No user with that email or wrong password")
+        }
+        else{
+          SweetAlert("warning", "Ooops", "Something go wrong")
+        }
     })
   }
 

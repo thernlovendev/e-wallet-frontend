@@ -33,21 +33,21 @@ export default function StepsToActivate () {
                 </SoftBox>
             </SoftBox>
             <Grid container ml={2} spacing={0} display="flex" flexDirection="column" >
-                {controller.user.identityVerifed ?
+                {controller.user.identityVerified ?
                 <></> :
                 <SoftBox my={0} mr={4} >
                     <SoftAlert>
                         You need to verify your identity.
                     </SoftAlert>
                 </SoftBox>}
-                {/*controller.user.phoneVerifed ? 
+                {/*controller.user.phoneVerified ? 
                 <></> : 
                 <SoftBox my={0}  mr={4}>
                     <SoftAlert>
                         You need to confirm your cellphone.
                     </SoftAlert>
                 </SoftBox>*/}
-                {controller.user.addessVerified ?
+                {controller.user.addressVerified ?
                 <></> :
                 <SoftBox my={0} mr={4}>
                     <SoftAlert>
@@ -55,7 +55,7 @@ export default function StepsToActivate () {
                     </SoftAlert>
                 </SoftBox>
                 }
-                {controller.user.identityVerifed && controller.user.phoneVerifed && controller.user.addessVerified && controller.user.stripe.accountID.length < 1 ? 
+                {controller.user.identityVerified && controller.user.phoneVerified && controller.user.addressVerified && controller.user.stripe.accountID.length < 1 ? 
                 <SoftBox my={0} mr={2}>
                     <SoftAlert>
                         You need to log out and log in to activate your Wallet.

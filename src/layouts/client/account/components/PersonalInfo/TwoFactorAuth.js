@@ -121,15 +121,15 @@ export default function TwoFactorAuth() {
         <SoftTypography variant="h5" fontWeight="bolder" color="text">
           Two-factor authentication
         </SoftTypography>
-        {controller.user.phoneVerifed ? <></> :
+        {controller.user.phoneVerified ? <></> :
           <SoftButton variant="outlined" color="warning" size="small" onClick={handleConfirmPhone}>
             Confirm your phone
           </SoftButton>
         }
         <SoftBadge
           variant="gradient"
-          badgeContent={controller.user.phoneVerifed ? "Enabled" : "No Enabled"}
-          color={controller.user.phoneVerifed ? "succes" : "warning"}
+          badgeContent={controller.user.phoneVerified ? "Enabled" : "No Enabled"}
+          color={controller.user.phoneVerified ? "succes" : "warning"}
           size="xs"
           container
         ></SoftBadge>

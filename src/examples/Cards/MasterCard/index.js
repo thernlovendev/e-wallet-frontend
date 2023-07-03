@@ -48,7 +48,7 @@ function MasterCard({ color, number, holder, expires, id }) {
   }
 
   const handleCancelRob = () => {
-    cancelCard(id, controller.user.id, "rob").then(user => {
+    cancelCard(id, controller.user.id, "stolen").then(user => {
       setUser(dispatch, user)
       SweetAlert("success", "All good", "Card cancelation requested send");
       closeMenu();

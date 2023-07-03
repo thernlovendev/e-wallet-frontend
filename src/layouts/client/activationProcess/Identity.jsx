@@ -44,14 +44,9 @@ export default function Identity({onSave, prev}) {
 
     const handleVerifyIdentity = () => {
         verifyIdentity(image1, image2, controller.user.id, id).then(data=>{
-            console.log(data)
-            if(!data.identityVerifed){
-              SweetAlert("warning", "Ooops", "The images do not match");
-            }else{
               setUser(dispatch, data);
               SweetAlert("success", "All good", "Identity verified, you will be redirected!");
               navegar("/authentication/sign-in")
-            }
         }).catch(error => {
             if(error === 400){
               SweetAlert("warning", "Ooops", "The Numbers of ID do not match")

@@ -692,6 +692,7 @@
             rej(400)
           }
           if(data.status != 200){
+            console.log(data.status)
             rej(404)
           }
           else{
@@ -833,3 +834,4 @@
       })
     )
   }
+

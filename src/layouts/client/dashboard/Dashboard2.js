@@ -18,6 +18,8 @@ import BillingInformation from "layouts/client/billing/components/BillingInforma
 import BalanceAvailable from "./components/BalanceAvailable";
 import QrCode from "./components/QrCode";
 import { useSoftUIController } from "context";
+import Dona from "../Graphics/Dona";
+import { Card } from "reactstrap";
 
 function Dashboard2() {
 
@@ -83,9 +85,16 @@ function Dashboard2() {
               <SoftBox mb={3}>
                 {/*<PaymentMethod />*/}
               </SoftBox>
+              <Card>
+                <SoftBox>
+                  <Dona></Dona>
+                </SoftBox>
+              </Card>
+
               <SoftBox mb={2}>
                 {controller.user.stripeAccount ? <Transactions /> : <></>}
               </SoftBox>
+
 {/*              <SoftBox mb={3}>
                 <BillingInformation />
               </SoftBox>*/}

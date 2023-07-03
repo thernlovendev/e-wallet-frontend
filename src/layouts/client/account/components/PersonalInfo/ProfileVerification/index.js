@@ -45,7 +45,7 @@ function ProfileVerification () {
   const handleCompare = async () => {
     verifyIdentity(image1, image2, controller.user.id, id).then(data=>{
       console.log(data)
-      if(!data.identityVerifed){
+      if(!data.identityVerified){
         SweetAlert("warning", "Ooops", "The images do not match");
       }else{
         setUser(dispatch, data);
