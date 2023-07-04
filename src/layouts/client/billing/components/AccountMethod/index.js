@@ -1,4 +1,3 @@
-// @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
@@ -31,7 +30,7 @@ import { confirmCodeTransfer } from "apis/request";
 import { withdraw2 } from "apis/request";
 import { confirmCodeWithdraw } from "apis/request";
 
-function PaymentMethod() {
+function AccountMethod() {
   const [controller, dispatch] = useSoftUIController();
   const [changeCurrencys, setChangeCurrencys] = useState(controller.currencys)
   const { borderWidth, borderColor } = borders;
@@ -51,7 +50,7 @@ function PaymentMethod() {
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(0);
   const [accountNumber, setAccountNumber] = useState(0);
-  const [selectedCard, setSelectedCard] = useState("asd");
+  const [selectedCard, setSelectedCard] = useState("");
   const [action, setAction] = useState("");
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
@@ -159,25 +158,6 @@ function PaymentMethod() {
     }
   }
 
-  const handleAddCard = () => {
-    if(controller.user.stripe.customerID.length < 1){
-      SweetAlert("warning", "Ooops", "You must finish the activation proccess, go to account and then to personal information for more info")
-    }else{
-      addCard(controller.user.id, cardNumber, CVC, month, year).then(async (user) => {
-        await setUser(dispatch, user)
-        toggleAddCard();
-        SweetAlert("success", "All good", "Card added")
-      }).catch(error => {
-        if (error === 400){
-          SweetAlert("warning", "Ooops", "Wrong card data")
-        }
-        if(error === 404){
-          SweetAlert("warning", "Ooops", "Something went wrong")
-        }
-      })
-    }
-  }
-
   const handleAddBanckAccount = () => {
     if(controller.user.stripe.accountID.length < 1){
       SweetAlert("warning", "Ooops", "You must go to account and then to personal information and complete your activation proccess")
@@ -266,7 +246,6 @@ function PaymentMethod() {
 
   const toggleAddMoney = () => setModal((prev) => ({ ...prev, addMoney: !prev.addMoney }));
   const toggleSendMoney = () => setModal((prev) => ({ ...prev, sendMoney: !prev.sendMoney }));
-  const toggleAddCard = () => setModal((prev) => ({ ...prev, addCard: !prev.addCard }))
   const toggleAddBanckAccount = () => setModal((prev) => ({ ...prev, banckAccount: !prev.banckAccount }))
   const toggleConfirmCode = () => setModal((prev) => ({ ...prev, confirmCode: !prev.confirmCode }))
   const toggleWithdraw = () => setModal((prev) => ({ ...prev, withdraw: !prev.withdraw }))
@@ -275,7 +254,7 @@ function PaymentMethod() {
     <Card id="delete-account">
       <SoftBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
         <SoftTypography variant="h6" fontWeight="medium">
-          Cards Payment Method
+          Back Account Method
         </SoftTypography>
         <SoftBox display="flex" gap={1} alignItems="center">
           <SoftButton variant="gradient" color="dark" onClick={toggleAddMoney}>
@@ -294,7 +273,7 @@ function PaymentMethod() {
       </SoftBox>
       <SoftBox p={2}>
         <Grid container spacing={3}>
-          {controller.user.cards.map(card => {
+          {controller.user.banckAccount.map(card => {
             return(
             <Grid item xs={12} md={6}>
               <SoftBox
@@ -305,7 +284,7 @@ function PaymentMethod() {
                 alignItems="center"
                 p={3}
               >
-                <SoftBox component="img" src={card.brand === "Visa" ? visaLogo : masterCardLogo} alt={card.brand === "Visa" ? "visa card" : "master card"} width="10%" mr={2} />
+                {/*<SoftBox component="img" src={card.brand === "Visa" ? visaLogo : masterCardLogo} alt={card.brand === "Visa" ? "visa card" : "master card"} width="10%" mr={2} />*/}
                 <SoftTypography variant="h6" fontWeight="medium">
                   ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;{card.last4}
                 </SoftTypography>
@@ -322,7 +301,7 @@ function PaymentMethod() {
         </Grid>
       </SoftBox>
       <SoftBox ml={2} >
-        <Link onClick={toggleAddCard} className="text-sm">Add a credit or debit card</Link>
+        <Link onClick={toggleAddBanckAccount} className="text-sm">Add a Banck Account</Link>
       </SoftBox>
       <SoftModal
         header="Add Money"
@@ -334,7 +313,7 @@ function PaymentMethod() {
               <div class="form-group col-12">
                 <label for="">Select Card</label>
                 <select class="form-control" name="selectedCard" onClick={handleChange} onChange={handleChange} >
-                  {controller.user.cards.map(card => {
+                  {controller.user.banckAccount.map(card => {
                     return(
                       <option value={card.id}>****** {card.last4}</option>
                     )
@@ -345,7 +324,7 @@ function PaymentMethod() {
             <div class="row mt-2">
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option>X</option>
+                <option>Select a currency</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -395,7 +374,7 @@ function PaymentMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option>X</option>
+                <option>Select a currency</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -445,7 +424,7 @@ function PaymentMethod() {
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
                 <select class="form-control" name="currency" onChange={handleChange} >
-                  <option>X</option>
+                  <option>Select a currency</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -493,76 +472,6 @@ function PaymentMethod() {
             </SoftButton>
             <SoftButton component="button" color={"success"} onClick={handleSendMoney} >
               Send
-            </SoftButton>
-          </SoftBox>
-        }
-      />
-      <SoftModal
-        header="Add a credit or debit card"
-        toggle={toggleAddCard}
-        open={modal.addCard}
-        body={
-          <>
-            <div class="form-group">
-              <SoftTypography variant="h6" fontWeight="medium">
-                Card number
-              </SoftTypography>
-              <SoftInput
-                    min="1"
-                    type="number"
-                    placeholder="444444444444"
-                    name="cardNumber"
-                    onChange={handleChange}
-                />
-            </div>
-            <div class="form-group">
-              <SoftTypography variant="h6" fontWeight="medium">
-                CVC Code Number
-              </SoftTypography>
-                <div class="form-group col-2">
-                  <SoftInput
-                        min="1"
-                        type="number"
-                        placeholder="123"
-                        name="CVC"
-                        onChange={handleChange}
-                    />
-                </div>
-            </div>
-            <div class="form-group">
-              <SoftTypography variant="h6" fontWeight="medium">
-                Expiration Date
-              </SoftTypography>
-              <div class="row mt-4">
-                <div class="form-group col-2">
-                  <SoftInput
-                      min="1"
-                      type="number"
-                      placeholder="12"
-                      name="month"
-                      onChange={handleChange}
-                  />
-                </div>
-                <div class="form-group col-2">
-                  <SoftInput
-                      min="1"
-                      type="number"
-                      placeholder="25"
-                      name="year"
-                      onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
-          </>
-        }
-        footer={
-          <SoftBox display="flex" gap="5px">
-            <SoftButton component="button" color={"secondary"} onClick={toggleAddCard}>
-              Cancel
-            </SoftButton>
-            <SoftButton component="button" color={"success"} onClick={handleAddCard} >
-              Add Card
             </SoftButton>
           </SoftBox>
         }
@@ -646,4 +555,4 @@ function PaymentMethod() {
   );
 }
 
-export default PaymentMethod;
+export default AccountMethod;

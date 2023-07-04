@@ -240,47 +240,6 @@ export default function createRoutes (user) {
           },
         ],
       },
-      {
-        type: "collapse",
-        name: "Admin",
-        key: "admin",
-        route: "/admin/dashboard",
-        icon: <Home />,
-        collapse: [
-          {
-            type: "collapse",
-            name: "Dashboard",
-            key: "admin-dashboard",
-            route: "/admin/dashboard",
-            component: <DefaultComponent>Admin Dashboard</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Transactions",
-            key: "admin-transactions",
-            route: "/admin/transactions",
-            component: <DefaultComponent>Admin Transactions</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "Reports",
-            key: "admin-reports",
-            route: "/admin/resports",
-            component: <DefaultComponent>Admin Reports</DefaultComponent>,
-            collapse: false,
-          },
-          {
-            type: "collapse",
-            name: "New User",
-            key: "admin-new-user",
-            route: "/admin/new-user",
-            component: <DefaultComponent>Admin New User</DefaultComponent>,
-            collapse: false,
-          },
-        ],
-      },
     ]
   }
 }

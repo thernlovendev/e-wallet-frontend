@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { Card } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function Dona () {
+export default function Dona ({amount}) {
+
+  useEffect(() => {
+
+  }, [amount])
 
     const data = {
         labels: ['GBP', 'USD', 'EUR'],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3],
+            label: '$',
+            data: amount,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -28,8 +33,12 @@ export default function Dona () {
     };
 
     return(
-      <div style={{width : "80%", padding : "10px", height:"70%"}} >
-        <Doughnut data={data} />
-      </div>
+
+      <Card >
+        
+          <Doughnut data={data} />
+        
+      </Card>
+
     )
 }

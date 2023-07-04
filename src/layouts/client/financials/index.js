@@ -34,7 +34,7 @@ function Accounts({ title, bgColor, icon }) {
               return(
               <Grid item xs={12} sm={6} xl={4}>
                 <CountryTransactions
-                  title={{ text: account.currency + " " + account.amount, fontWeight: "bold" }}
+                  title={{ text: account.currency + " " + account.amount.toFixed(2), fontWeight: "bold" }}
                   icon={account.currency}
                 />
               </Grid>

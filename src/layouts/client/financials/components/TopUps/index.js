@@ -8,6 +8,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import topupsTableData from "./topupsTableData";
 import { useSoftUIController } from "context";
 import { useEffect, useState } from "react";
+import { Button } from "reactstrap";
 
 function TopUps() {
   const [controller, dispatch] = useSoftUIController();
@@ -21,6 +22,10 @@ function TopUps() {
     { name: "action", align: "center" },
   ]);
   const [rows2, setRows2] = useState([]);
+  const [totalItems, setTotalItems] = useState(controller.user.transactions.length);
+  const [transactions, setTransactions] = useState(controller.user.transactions);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   function AmountField({ amount }) {
     return (
@@ -35,7 +40,8 @@ function TopUps() {
 
   useEffect(() => {
     async function x() {
-      const rows = await controller.user.transactions.map((transaction) => {
+      const paginatedTransactions = paginate(currentPage);
+      const rows = await paginatedTransactions.map((transaction) => {
         if(transaction.action === "charge") {
           return {
             AMOUNT: <AmountField amount={transaction.currency + " " +  transaction.amount} />,
@@ -71,7 +77,26 @@ function TopUps() {
       console.log(rows2)
     }
     x();
-  },[controller])
+  },[controller, currentPage])
+
+  function paginate(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return transactions.slice(startIndex, endIndex);
+  }
+
+  function goToPreviousPage() {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  }
+  
+  function goToNextPage() {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  }
 
   function Actions() {
     return (
@@ -89,6 +114,15 @@ function TopUps() {
         <Card>
           <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
             <SoftTypography variant="h6">All Top Up's</SoftTypography>
+            <SoftBox display="flex" >
+              <Button variant="contained" color="primary" onClick={goToPreviousPage}>
+                Previus Page
+              </Button>
+              <SoftTypography mr={2} ml={2} variant="h6"> {currentPage} </SoftTypography>
+              <Button variant="contained" color="secondary" onClick={goToNextPage}>
+                Next Page
+              </Button>
+            </SoftBox>
           </SoftBox>
           <SoftBox
             sx={{

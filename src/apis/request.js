@@ -278,33 +278,6 @@
         })
       )
   }
-  
-  export function addMoney (id, amount, card, currency, localAmount) {
-    const data = {
-      id: id,
-      amount: amount,
-      date : new Date(),
-      card: card,
-      currency: currency,
-      localAmount: localAmount
-    }
-    console.log(data)
-    return(
-      new Promise(async(res,rej)=> {
-        fetch("https://radiant-gorge-42555.herokuapp.com/chargeMoney",{
-          method: "POST",
-          headers: {
-            "Content-Type" : "application/json"
-            }, 
-          body: await JSON.stringify(data),
-        }).then(data => {
-          res(data.json())
-        }).catch(error =>{
-          rej(error)
-        })
-      })
-    )
-  }
 
   export function addMoney2 (id, amount, card, currency, localAmount){
     const data = {
@@ -318,7 +291,7 @@
     console.log(data)
     return(
       new Promise(async(res,rej)=> {
-        fetch("https://radiant-gorge-42555.herokuapp.com/chargeMoney2",{
+        fetch("http://localhost:4242/chargeMoney2",{
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -347,7 +320,7 @@
     }
     return(
       new Promise (async (res, rej) => {
-        fetch("https://radiant-gorge-42555.herokuapp.com/confirmChargeCode", {
+        fetch("http://localhost:4242/confirmChargeCode", {
           method: "POST",
           headers: {
               "Content-Type" : "application/json"
@@ -362,32 +335,6 @@
             res(data.json())
           }
         }).catch(error => { rej(error) })
-      })
-    )
-  }
-  
-  export async function withdraw (id, amount) {
-    const data = {
-      id: id,
-      amount: amount,
-      date : await new Date()
-    }
-    return(
-      new Promise (async (res, rej) => {
-        fetch("https://radiant-gorge-42555.herokuapp.com/withdraw",{
-          method: "POST",
-          headers: {
-            "Content-Type" : "application/json"
-            },
-          body: await JSON.stringify(data),
-        }).then(data => {
-          if(data.status == 400){
-            rej(data.status);
-          }
-          res(data.json())
-        }).catch(error =>{
-          rej(error)
-        })
       })
     )
   }
@@ -681,7 +628,7 @@
     }
     return (
       new Promise (async (res, rej) => {
-        fetch("https://radiant-gorge-42555.herokuapp.com/SingIn2", {
+        fetch("http://localhost:4242/SingIn2", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
