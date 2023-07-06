@@ -181,6 +181,7 @@ function PaymentMethod() {
 
   const handleDeleteCard = (card) => {
     deleteCard(card, controller.user.id).then(user => {
+      setUser(user)
       SweetAlert("success", "All good", "Card Deleted")
     }).catch(error => {
       if (error === 400){
