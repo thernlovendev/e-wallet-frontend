@@ -30,6 +30,7 @@ import { userTransfer2 } from "apis/request";
 import { confirmCodeTransfer } from "apis/request";
 import { withdraw2 } from "apis/request";
 import { confirmCodeWithdraw } from "apis/request";
+import { deleteCard } from "apis/request";
 
 function PaymentMethod() {
   const [controller, dispatch] = useSoftUIController();
@@ -178,6 +179,19 @@ function PaymentMethod() {
     }
   }
 
+  const handleDeleteCard = (card) => {
+    deleteCard(card, controller.user.id).then(user => {
+      SweetAlert("success", "All good", "Card Deleted")
+    }).catch(error => {
+      if (error === 400){
+        SweetAlert("warning", "Ooops", "Wrong card data")
+      }
+      if(error === 404){
+        SweetAlert("warning", "Ooops", "Something went wrong")
+      }
+    })
+  }
+
   const handleAddBanckAccount = () => {
     if(controller.user.stripe.accountID.length < 1){
       SweetAlert("warning", "Ooops", "You must go to account and then to personal information and complete your activation proccess")
@@ -311,7 +325,7 @@ function PaymentMethod() {
                 </SoftTypography>
                 <SoftBox ml="auto" lineHeight={0}>
                   <Tooltip title="Delete Card" placement="top">
-                    <Icon sx={{ cursor: "pointer" }} fontSize="small">
+                    <Icon sx={{ cursor: "pointer" }} fontSize="small" onClick={() => handleDeleteCard(card)}>
                       delete
                     </Icon>
                   </Tooltip>

@@ -25,10 +25,17 @@ function PyzenCard () {
                     id={card.id}
                     number={"**In Revision **"}
                     holder={controller.user.name + " " + controller.user.lastName}
-                    expires={card.exp_month.toString() + "/" + card.exp_year.toString()}
+                    expires={"xx" + "/" + "xx"}
                     />
                 </Grid>
-                ) : (
+                ) : card.id === "rejected" ? (<Grid item xs={12} sm={12} xl={12}>
+                    <RequestPyzen
+                    id={"rejected"}
+                    number={"Request rejected"}
+                    holder={controller.user.name + " " + controller.user.lastName}
+                    expires={"xx" + "/" + "xx"}
+                    />
+                </Grid>): (
                 <Grid item xs={12} sm={12} xl={12} key={card.id}>
                     <MasterCard
                     id={card.id}
@@ -39,7 +46,7 @@ function PyzenCard () {
                 </Grid>
                 );
             })
-            ) : (
+            ) :  (
             <Grid item xs={12} sm={12} xl={12}>
                     <RequestPyzen
                     id={"Request"}
