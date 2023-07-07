@@ -40,66 +40,6 @@ function Accounts({ title, bgColor, icon }) {
               </Grid>
               )
             })}
-{/*            <Grid item xs={12} sm={6} xl={4}>
-              <CountryTransactions
-                title={{ text: "$2342.98", fontWeight: "bold" }}
-                icon={{
-                  color: "dark",
-                  component: <img src={usImg} className="avatar avatar-xs me-1" alt="logo" />,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={4}>
-              <CountryTransactions
-                title={{ text: "$2342.98", fontWeight: "bold" }}
-                icon={{
-                  color: "dark",
-                  component: <img src={usImg} className="avatar avatar-xs me-1" alt="logo" />,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={4}>
-              <CountryTransactions
-                title={{ text: "$2342.98", fontWeight: "bold" }}
-                icon={{
-                  color: "dark",
-                  component: <img src={usImg} className="avatar avatar-xs me-1" alt="logo" />,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} xl={4}>
-              <CountryTransactions
-                title={{ text: "$2342.98", fontWeight: "bold" }}
-                icon={{
-                  color: "dark",
-                  component: <img src={usImg} className="avatar avatar-xs me-1" alt="logo" />,
-                }}
-              />
-            </Grid>*/}
-{/*            <Grid item xs={12} sm={6} xl={4}>
-              <SoftBox
-                height="100%"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                bgColor="primary"
-                borderRadius="lg"
-                variant="gradient"
-                // flexDirection="row"
-                onClick={() => setNewAcc((prev) => !prev)}
-              >
-                <Grid item>
-                  <SoftTypography
-                    component="h6"
-                    fontWeight="light"
-                    fontSize=".87em"
-                    color="white"
-                  >
-                    New Account
-                  </SoftTypography>
-                </Grid>
-              </SoftBox>
-            </Grid>*/}
           </Grid>
         </SoftBox>
       </SoftBox>

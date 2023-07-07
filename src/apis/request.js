@@ -665,6 +665,9 @@
           if(data.status === 400){
             rej(400)
           }
+          if(data.status === 407){
+            rej(407)
+          }
           if(data.status != 200){
             console.log(data.status)
             rej(404)

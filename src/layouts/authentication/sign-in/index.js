@@ -52,6 +52,9 @@ function SignIn() {
         if(error === 400){
           SweetAlert("warning", "Ooops", "No user with that email or wrong password")
         }
+        if(error === 407){
+          SweetAlert("warning", "Ooops", "User blocked")
+        }
         else{
           SweetAlert("warning", "Ooops", "Something go wrong")
         }
