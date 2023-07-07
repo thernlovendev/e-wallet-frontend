@@ -43,7 +43,7 @@ function AllTransactions() {
     async function x () {
       const paginatedTransactions = paginate(currentPage);
       const rows = await paginatedTransactions.map((transaction) => ({
-        AMOUNT: <AmountField amount={transaction.currency + " " + transaction.amount} />,
+        AMOUNT: <AmountField amount={transaction.currency + " " + parseInt(transaction.amount.toFixed(2))} />,
         DESCRIPTION: (
           <SoftTypography variant="caption" color="secondary" fontWeight="medium">
             {transaction.action}

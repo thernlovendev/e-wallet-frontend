@@ -30,10 +30,10 @@ function Dashboard2() {
   const [USDamount, setUSDamount] = useState(0);
   const [EURamount, setEURamount] = useState(0);
   const [GBPamount, setGBPamount] = useState(0);
-  const [withdraws, setWithdraws] = useState(controller.user.dashData.withdraws);
-  const [transfers, setTransfers] = useState(controller.user.dashData.transfers);
+  const [withdraws, setWithdraws] = useState(controller.user.dashData.withdraws.toFixed(2));
+  const [transfers, setTransfers] = useState(controller.user.dashData.transfers.toFixed(2));
   const [topOps, setTopOps] = useState(controller.user.dashData.topOps.toFixed(2));
-  const [recived, setRecived] = useState(controller.user.dashData.recived);
+  const [recived, setRecived] = useState(controller.user.dashData.recived.toFixed(2));
 
   useEffect(() => {
     controller.user.amount.map(amount => {

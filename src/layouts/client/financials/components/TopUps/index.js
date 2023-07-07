@@ -44,7 +44,7 @@ function TopUps() {
       const rows = await paginatedTransactions.map((transaction) => {
         if(transaction.action === "charge") {
           return {
-            AMOUNT: <AmountField amount={transaction.currency + " " +  transaction.amount} />,
+            AMOUNT: <AmountField amount={transaction.currency + " " + parseInt(transaction.amount.toFixed(2))} />,
             DESCRIPTION: (
               <SoftTypography variant="caption" color="secondary" fontWeight="medium">
                 "TopUp"

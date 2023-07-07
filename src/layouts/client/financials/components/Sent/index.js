@@ -45,7 +45,7 @@ function Sent() {
         if(transaction.action === "transfer" && transaction.amount < 0) {
           console.log("XXX")
           return {
-            AMOUNT: <AmountField amount={transaction.currency + " " +  transaction.amount} />,
+            AMOUNT: <AmountField amount={transaction.currency + " " +  parseInt(transaction.amount.toFixed(2))} />,
             DESCRIPTION: (
               <SoftTypography variant="caption" color="secondary" fontWeight="medium">
                 {transaction.action}

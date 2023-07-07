@@ -44,9 +44,15 @@ function SignIn() {
       SingIn(singData.email, singData.password).then(async (data) =>{
         console.log("sda")
         console.log(data.user)
-        await setUser(dispatch, data.user)
-        await setCurrencys(dispatch, data.currencys)
-        navegar("/dashboard")
+        if(data.user.stripeAccount){
+          await setUser(dispatch, data.user)
+          await setCurrencys(dispatch, data.currencys)
+          navegar("/dashboard")
+        }else{
+          await setUser(dispatch, data.user)
+          navegar("/activation-process")
+        }
+
       }).catch(error => {
         console.log(error)
         if(error === 400){
