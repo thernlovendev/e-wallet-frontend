@@ -20,8 +20,16 @@ import { cancelCard } from "apis/request";
 import { setUser } from "context";
 import { SweetAlert } from "apis/sweetAlert";
 import { requestCreditCard } from "apis/request";
+import SoftButton from "components/SoftButton";
+import SoftModal from "components/SoftModal";
+import { Link, useNavigate } from "react-router-dom";
 
 function RequestPyzen({ color, number, holder, expires, id }) {
+  const navegar = useNavigate();
+  const [modal, setModal] = useState({
+    terms: false,
+    request: false,
+  });
   const numbers = [...`${number}`];
   const [menu, setMenu] = useState(null);
   const [controller, dispatch] = useSoftUIController();
@@ -29,15 +37,23 @@ function RequestPyzen({ color, number, holder, expires, id }) {
   const openMenu = ({ currentTarget }) => setMenu(currentTarget);
   const closeMenu = () => setMenu(null);
 
+  const toggleTerms = () => setModal((prev) => ({ ...prev, terms: !prev.terms }));
+  const toggleRequest = () => setModal((prev) => ({ ...prev, request: !prev.request }));
+
+  const handleTerms = () => {
+
+  }
+
   const handleCreditCardRequest = () => {
-    requestCreditCard(controller.user.id).then(async (user) => {
+    navegar("/account/CardTerms&Conditions")
+    /*requestCreditCard(controller.user.id).then(async (user) => {
       SweetAlert("success", "All good", "Card requested")
       await setUser(dispatch, user)
     }).catch(error => {
       if(error === 404){
         SweetAlert("warning", "Ooops", "Something went wrong")
       }
-    })
+    })*/
   }
 
   if (numbers.length < 16 || numbers.length > 16) {
@@ -168,7 +184,31 @@ function RequestPyzen({ color, number, holder, expires, id }) {
             </Grid>
         </SoftBox>
       </SoftBox>
+{      <SoftModal
+        header="Send Money"
+        toggle={toggleTerms}
+        open={modal.terms}
+        body={
+          <>
+            <SoftTypography variant="h6" fontWeight="medium">
+              Write the terms or put it in the link below, or the two options
+            </SoftTypography>
+            <Link className="text-sm">Terms and conditions</Link>
+          </>
+        }
+        footer={
+          <SoftBox display="flex" gap="5px">
+            <SoftButton component="button" color={"secondary"} onClick={toggleTerms}>
+              Cancel
+            </SoftButton>
+            <SoftButton component="button" color={"success"} onClick={toggleTerms} >
+              Send
+            </SoftButton>
+          </SoftBox>
+        }
+      />}
     </Card>
+    
   );
 }
 

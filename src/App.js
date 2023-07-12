@@ -36,6 +36,7 @@ import config from "config";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import createRoutes from "routes";
+import NewUser from "layouts/client/activationProcess";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -171,6 +172,7 @@ export default function App() {
         <Route path="/authentication/sign-in" element={<SignIn />} />
         <Route path="/authentication/sign-up" element={<SignUp />} />
         <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+        <Route path="/activation-process" element={<NewUser />} />
       </Routes>
     </ThemeProvider>
   );

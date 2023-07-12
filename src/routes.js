@@ -43,11 +43,13 @@ import { useSoftUIController } from "context";
 import { aceptCard } from "apis/request";
 import { SweetAlert } from "apis/sweetAlert";
 import NewUser from "layouts/client/activationProcess";
+import CardTermsandConditions from "layouts/client/cardTermsandConditions/cardTermsandConditions";
+import Receptiants from "layouts/client/receptiants/Receptiants";
 
 export default function createRoutes (user) {
   //const [controller, dispatch] = useSoftUIController();
   if(!user.stripeAccount){
-    return[
+    return[/*
       {
         type:"collapse",
         name: "Activation Process",
@@ -56,7 +58,7 @@ export default function createRoutes (user) {
         icon: null,
         component: <NewUser />,
         collapse: false,
-      },
+      },*/
     ];
   }else{
     return[
@@ -162,7 +164,7 @@ export default function createRoutes (user) {
             name: "Receptiants",
             key: "receptiants",
             route: "/account/receptiants",
-            component: <DefaultComponent>My Receptiants</DefaultComponent>,
+            component: <Receptiants/>,
             collapse: false,
           },
           {
@@ -191,8 +193,16 @@ export default function createRoutes (user) {
                 type: "collapse",
                 name: "Terms & Conditions",
                 key: "Terms&Conditions",
-                route: "/account/Terms&Conditions",
+                route: "/account/AppTerms&Conditions",
                 component: <DefaultComponent>My Terms&Conditions</DefaultComponent>,
+                collapse: false,
+              },
+              {
+                type: "collapse",
+                name: "Card Terms & Conditions",
+                key: "CardTerms&Conditions",
+                route: "/account/CardTerms&Conditions",
+                component: <CardTermsandConditions/>,
                 collapse: false,
               },
             ],
@@ -480,31 +490,9 @@ export default function createRoutes (user) {
 
 function DefaultComponent(props) {
 
-  const [controller, dispatch] = useSoftUIController();
-
-  const handleAceptCard = () => {
-    console.log(controller.user.id)
-    aceptCard(controller.user.id).then(user => {
-      SweetAlert("success", "All good", "Card acepted")
-    }).catch(error => {
-      console.log(error)
-    })
-  }
-
   return (
     <>
       <DashboardLayout>{props.children}
-      <SoftButton
-                    height="100%"
-                    component="h4"
-                    fontWeight="light"
-                    fontSize=".87em"
-                    color="dark"
-                    variant="gradient"
-                    onClick={handleAceptCard}
-                  >
-                    Acept the card
-                  </SoftButton>
       </DashboardLayout>
     </>
     

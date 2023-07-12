@@ -7,19 +7,13 @@ import SoftBox from "components/SoftBox";
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
-import Footer from "examples/Footer";
 
 // Soft UI Dashboard React base styles
-import MasterCard from "examples/Cards/MasterCard";
 import PaymentMethod from "layouts/client/billing/components/PaymentMethod";
 import Transactions from "layouts/client/billing/components/Transactions";
-import Invoices from "layouts/client/billing/components/Invoices";
-import BillingInformation from "layouts/client/billing/components/BillingInformation";
-import BalanceAvailable from "./components/BalanceAvailable";
 import QrCode from "./components/QrCode";
 import { useSoftUIController } from "context";
 import Dona from "../Graphics/Dona";
-import { Card } from "reactstrap";
 import AccountMethod from "../billing/components/AccountMethod";
 import PyzenCard from "./components/PyzenCard";
 import { useEffect, useState } from "react";
@@ -34,20 +28,48 @@ function Dashboard2() {
   const [transfers, setTransfers] = useState(controller.user.dashData.transfers.toFixed(2));
   const [topOps, setTopOps] = useState(controller.user.dashData.topOps.toFixed(2));
   const [recived, setRecived] = useState(controller.user.dashData.recived.toFixed(2));
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
-    controller.user.amount.map(amount => {
+    controller.user.amount.map(async (amount) => {
       if(amount.currency === "USD"){
         setUSDamount(amount.amount)
+        const toSearch = amount.currency + controller.user.currency;
+        const index = await controller.currencys.changes.findIndex(element => element.currencys === toSearch);
+        if (index !== -1) {
+          const amount2 = amount.amount * controller.currencys.changes[index].rate;
+          const finalAmount = amount2 + totalAmount
+          await setTotalAmount(finalAmount)
+        }else{
+          await setTotalAmount(totalAmount + amount.amount)
+        }
       }
       if(amount.currency === "GBP"){
         setGBPamount(amount.amount)
+        const toSearch = amount.currency + controller.user.currency;
+        const index = await controller.currencys.changes.findIndex(element => element.currencys === toSearch);
+        if (index !== -1) {
+          const amount2 = amount.amount * controller.currencys.changes[index].rate;
+          const finalAmount = amount2 + totalAmount
+          await setTotalAmount(finalAmount)
+        }else{
+          await setTotalAmount(totalAmount + amount.amount)
+        }
       }
       if(amount.currency === "EUR"){
         setEURamount(amount.amount)
+        const toSearch = amount.currency + controller.user.currency;
+        const index = await controller.currencys.changes.findIndex(element => element.currencys === toSearch);
+        if (index !== -1) {
+          const amount2 = amount.amount * controller.currencys.changes[index].rate;
+          const finalAmount = amount2 + totalAmount
+          await setTotalAmount(finalAmount)
+        }else{
+          await setTotalAmount(totalAmount + amount.amount)
+        }
       }
     })
-  }, [controller])
+  }, [controller.user])
 
   return (
     <DashboardLayout>
@@ -97,7 +119,7 @@ function Dashboard2() {
               <Grid container spacing={3}>
                 {/* Componente Dona */}
                 <Grid item xs={12} sm={8} lg={8} md={8}>
-                  <Dona amount={[GBPamount, USDamount, EURamount]} />
+                  <Dona amount={[GBPamount, USDamount, EURamount]} totalAmount={totalAmount} />
                 </Grid>
               </Grid>
             </SoftBox>

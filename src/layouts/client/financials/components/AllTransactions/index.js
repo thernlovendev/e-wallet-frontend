@@ -114,7 +114,7 @@ function AllTransactions() {
               <Button variant="contained" color="primary" onClick={goToPreviousPage}>
                 Previus Page
               </Button>
-              <SoftTypography mr={2} ml={2} variant="h6"> {currentPage} </SoftTypography>
+              <SoftTypography mr={2} ml={2} mt={1} variant="h6"> {currentPage} </SoftTypography>
               <Button variant="contained" color="secondary" onClick={goToNextPage}>
                 Next Page
               </Button>

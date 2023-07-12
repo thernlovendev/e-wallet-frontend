@@ -56,11 +56,14 @@ function PaymentMethod() {
   const [action, setAction] = useState("");
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
+  const [index, setIndex] = useState(0);
+
 
   useEffect(() => {
     const toSearch = currency + controller.user.currency;
     const index = controller.currencys.changes.findIndex(element => element.currencys === toSearch);
-  
+    const index2 = controller.user.amount.findIndex(element => element.currency === currency)
+    setIndex(index2);
     if (index !== -1) {
       const localAmount2 = amount * controller.currencys.changes[index].rate;
       setLocalAmount(localAmount2.toFixed(2));
@@ -279,12 +282,27 @@ function PaymentMethod() {
     }
   }
 
-  const toggleAddMoney = () => setModal((prev) => ({ ...prev, addMoney: !prev.addMoney }));
-  const toggleSendMoney = () => setModal((prev) => ({ ...prev, sendMoney: !prev.sendMoney }));
+  const toggleAddMoney = () => {
+    setCurrency(controller.user.currency)
+    const index2 = controller.user.amount.findIndex(element => element.currency === currency)
+    setIndex(index2);
+    setModal((prev) => ({ ...prev, addMoney: !prev.addMoney }))
+  };
+  const toggleSendMoney = () => {{
+    setCurrency(controller.user.currency)
+    const index2 = controller.user.amount.findIndex(element => element.currency === currency)
+    setIndex(index2);
+    setModal((prev) => ({...prev, sendMoney: !prev.sendMoney }))}
+  };
   const toggleAddCard = () => setModal((prev) => ({ ...prev, addCard: !prev.addCard }))
   const toggleAddBanckAccount = () => setModal((prev) => ({ ...prev, banckAccount: !prev.banckAccount }))
   const toggleConfirmCode = () => setModal((prev) => ({ ...prev, confirmCode: !prev.confirmCode }))
-  const toggleWithdraw = () => setModal((prev) => ({ ...prev, withdraw: !prev.withdraw }))
+  const toggleWithdraw = () => {
+    setCurrency(controller.user.currency)
+    const index2 = controller.user.amount.findIndex(element => element.currency === currency)
+    setIndex(index2);
+    setModal((prev) => ({ ...prev, withdraw: !prev.withdraw }))
+  }
 
   return (
     <Card id="delete-account">
@@ -360,13 +378,13 @@ function PaymentMethod() {
             <div class="row mt-2">
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option>X</option>
+                  <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
-                  <option value="GBP" >GBP</option>
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
+                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -379,13 +397,13 @@ function PaymentMethod() {
               </div>
             </div>
             <div class="row mt-2">
-            <label for="">Amount to charge in your local Currency</label>
-              <div class="form-group col-2">
+            <label for="">Fee we charge you: 4.4%</label>
+{/*              <div class="form-group col-2">
                 <label for="">{controller.user.currency}</label>
               </div>
               <div class="form-group col-10">
                 <label class="form-control" for="">{localAmount}</label>
-              </div>
+              </div>*/}
             </div>
           </>
         }
@@ -410,13 +428,13 @@ function PaymentMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option>X</option>
+                  <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
-                  <option value="GBP" >GBP</option>
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
+                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -460,13 +478,13 @@ function PaymentMethod() {
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
                 <select class="form-control" name="currency" onChange={handleChange} >
-                  <option>X</option>
+                  <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
-                  <option value="GBP" >GBP</option>
 { /*                 <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
+                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -479,13 +497,16 @@ function PaymentMethod() {
               </div>
             </div>
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Choose Receptiant (with the email)</label>
-{/*              <select class="form-control" id="exampleFormControlSelect1">
-                <option selected>Choose Receptiant (with the email)</option>
-                <option value="1">Camila Guemes</option>
-                <option value="2">Lukas Thern Loven</option>
-                <option value="3">Maximiliano Barrientos</option>
-              </select>*/}
+              <label for="exampleFormControlSelect1">Choose a Previus recepiant (with the email)</label>
+{              <select onChange={handleChange} name="destination" class="form-control" id="exampleFormControlSelect1">
+                <option selected>Used Recepiants</option>
+                {controller.user.recepiants.map(recepiant => {
+                  return(
+                    <option value={recepiant.email}>{recepiant.email}</option>
+                  )
+                })}
+              </select>}
+              <label for="exampleFormControlSelect1">Or type a new one</label>
               <div class="form-group col-10">
                 <input
                   type="text"
