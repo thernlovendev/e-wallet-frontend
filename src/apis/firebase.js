@@ -7,7 +7,7 @@ import { getAuth,
      signInWithEmailAndPassword,
      RecaptchaVerifier,
      signInWithPhoneNumber} from "firebase/auth";
-import { autentificarUser, createEmailUser, getUserEmailData } from "./request";
+import { autentificarUser, createEmailUser, getUserEmailData, singInGoogleUser } from "./request";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -33,18 +33,40 @@ export const SingInGoogle = () => {
       new Promise ((res, rej) => {
         signInWithPopup(auth, googleIn).then(async (result) => {
           const credential = await  GoogleAuthProvider.credentialFromResult(result);
-          console.log(credential)
+          //console.log(credential)
           const token = await credential.idToken;
           const user = await result.user;
           const objectRequest = await {token: token}
           console.log(user)
           console.log(token)
-          await autentificarUser(objectRequest)
-          res(user)
+          autentificarUser(objectRequest).then(data => {
+            res(data)
+          }).catch(error => {
+            rej(error)
+          })
         }).catch(error => {
           rej(error)
         })
       })
+  )
+}
+
+export const SingInGoogle2 = () => {
+  return(
+    new Promise(async (res, rej) => {
+      signInWithPopup(auth, googleIn).then(async (result) => {
+        const credential = await  GoogleAuthProvider.credentialFromResult(result);
+        const token = await credential.idToken;
+        const objectRequest = await {token: token};
+        singInGoogleUser(token).then(data => {
+          res(data)
+        }).catch(error => {
+          rej(error)
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    })
   )
 }
 

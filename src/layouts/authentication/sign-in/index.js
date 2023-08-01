@@ -23,6 +23,7 @@ import { setUser } from "context";
 import { setCurrencys } from "context";
 import { SingIn } from "apis/request";
 import { SweetAlert } from "apis/sweetAlert";
+import Socials2 from "../components/Socials2";
 
 function SignIn() {
 
@@ -48,6 +49,9 @@ function SignIn() {
           await setUser(dispatch, data.user)
           await setCurrencys(dispatch, data.currencys)
           navegar("/dashboard")
+        }if(!data.user.stripeAccount && data.user.trparty){
+          await setUser(dispatch, data.user)
+          navegar("/activation-process-full")
         }else{
           await setUser(dispatch, data.user)
           navegar("/activation-process")
@@ -65,6 +69,10 @@ function SignIn() {
           SweetAlert("warning", "Ooops", "Something go wrong")
         }
     })
+  }
+
+  const handleForget = () => {
+    navegar("/forget")
   }
 
   return (
@@ -105,9 +113,17 @@ function SignIn() {
             &nbsp;&nbsp;Remember me
           </SoftTypography>
         </SoftBox>
+        <SoftBox mt={2}>
+          <Socials2 />
+        </SoftBox>
         <SoftBox mt={4} mb={1}>
           <SoftButton variant="gradient" color="info" fullWidth onClick={handleSingIn}>
             sign in
+          </SoftButton>
+        </SoftBox>
+        <SoftBox mt={1}>
+          <SoftButton variant="gradient" color="dark" fullWidth onClick={handleForget}>
+            Forget Password
           </SoftButton>
         </SoftBox>
         <SoftBox mt={3} textAlign="center">

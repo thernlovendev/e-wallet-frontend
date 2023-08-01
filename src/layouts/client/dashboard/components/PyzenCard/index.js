@@ -17,7 +17,7 @@ function PyzenCard () {
         <div style={{height:"100%", weight:"100%"}} >
         <Card>
         <Grid container>
-            {controller.user.stripeCard.length > 0 ? (
+            { Object.keys(controller.user.stripeCard[0].id).length > 1 ? (
             controller.user.stripeCard.map((card) => {
                 return card.id === "in revision" ? (
                 <Grid item xs={12} sm={12} xl={12} key={card.id}>

@@ -17,20 +17,15 @@ import { useSoftUIController } from "context";
 import { requestCreditCard } from "apis/request";
 import { setUser } from "context";
 import { SweetAlert } from "apis/sweetAlert";
+import { Link, useNavigate } from "react-router-dom";
 
 function MyCard({ title, bgColor, icon }) {
+  const navegar = useNavigate();
   const [newAcc, setNewAcc] = useState(false);
   const [controller, dispatch] = useSoftUIController();
 
   const handleCreditCardRequest = () => {
-    requestCreditCard(controller.user.id).then(async (user) => {
-      SweetAlert("success", "All good", "Card requested")
-      await setUser(dispatch, user)
-    }).catch(error => {
-      if(error === 404){
-        SweetAlert("warning", "Ooops", "Something went wrong")
-      }
-    })
+    navegar("/account/CardTerms&Conditions")
   }
 
   const toggleNewAccount = () => setNewAcc((prev) => !prev);
@@ -39,7 +34,7 @@ function MyCard({ title, bgColor, icon }) {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Grid container spacing={2}>
-            {controller.user.stripeCard.length > 0 ? controller.user.stripeCard.map(card => {
+            {Object.keys(controller.user.stripeCard[0].id).length > 1 ? controller.user.stripeCard.map(card => {
               return(
                 card.id === "in revision" ? 
                 <Grid item xs={12} sm={6} xl={4}>

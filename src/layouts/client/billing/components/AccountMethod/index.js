@@ -391,9 +391,9 @@ function AccountMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
+                  <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
-                  <option value="GBP" >GBP</option>
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>

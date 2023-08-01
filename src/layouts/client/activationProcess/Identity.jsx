@@ -48,10 +48,16 @@ export default function Identity({onSave, prev}) {
               SweetAlert("success", "All good", "Identity verified, you will be redirected!");
               navegar("/authentication/sign-in")
         }).catch(error => {
-            if(error === 400){
+            if(error == 400){
               SweetAlert("warning", "Ooops", "The Numbers of ID do not match")
             }
-            console.log(error);
+            if(error == 401){
+                SweetAlert("warning", "Ooops", "The faces do not match")
+            }
+            else{
+                SweetAlert("warning", "Ooops", "Something go wrong")
+                console.log(error);
+            }
         });
     }
 

@@ -6,8 +6,11 @@ import { SingInGoogle } from "apis/firebase";
 import { useSoftUIController } from "context";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "context";
+import { SingInGoogle2 } from "apis/firebase";
+import { SweetAlert } from "apis/sweetAlert";
+import { setCurrencys } from "context";
 
-function Socials() {
+function Socials2() {
   const [controller, dispatch] = useSoftUIController();
 
   const navegar = useNavigate();
@@ -19,9 +22,29 @@ function Socials() {
   }
 
   function singGmail () {
-    SingInGoogle().then(async (user) => {
-      await setUser(dispatch, user)
-      navegar("/activation-process-full")
+    SingInGoogle2().then(async (data) => {
+        if(data.user.stripeAccount){
+            await setUser(dispatch, data.user)
+            await setCurrencys(dispatch, data.currencys)
+            navegar("/dashboard")
+        }if(!data.user.stripeAccount && data.user.trparty){
+            await setUser(dispatch, data.user)
+            navegar("/activation-process-full")
+        }if(!data.user.stripeAccount){
+            await setUser(dispatch, data.user)
+            navegar("/activation-process")
+        }
+    }).catch(error => {
+        console.log(error)
+        if(error === 400){
+          SweetAlert("warning", "Ooops", "No user with that email or wrong password")
+        }
+        if(error === 407){
+          SweetAlert("warning", "Ooops", "User blocked")
+        }
+        else{
+          SweetAlert("warning", "Ooops", "Something go wrong")
+        }
     })
   }
 
@@ -79,4 +102,4 @@ function Socials() {
   );
 }
 
-export default Socials;
+export default Socials2;

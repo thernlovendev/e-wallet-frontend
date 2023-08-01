@@ -2,12 +2,16 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import { useEffect, useState } from "react";
 import Table from "examples/Tables/Table";
 import { Card } from "reactstrap";
+import { Tooltip } from "@mui/material";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
-import { Visibility } from "@mui/icons-material";
+import { Delete, Visibility } from "@mui/icons-material";
 import { useSoftUIController } from "context";
 import { getRecepiants } from "apis/request";
 import SoftButton from "components/SoftButton";
+import { deletRecepiant } from "apis/request";
+import { setUser } from "context";
+import { SweetAlert } from "apis/sweetAlert";
 
 
 function Receptiants () {
@@ -20,24 +24,27 @@ function Receptiants () {
     ]);
     const [rows2, setRows2] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
+    const [totalItems, setTotalItems] = useState(controller.user.recepiants.length);
     const [recepiants, setRecepiants] = useState([]);
     const itemsPerPage = 10;
 
     useEffect(() => {
-        getRecepiants(controller.user.id).then(recepiants => {
+        getRecepiants(controller.user.id).then(async (recepiants) => {
             console.log(recepiants)
-            setRecepiants(recepiants)
-            setTotalItems(recepiants.length)
+            await setRecepiants(recepiants)
+            //await setTotalItems(recepiants.length)
         }).catch(error => {
             console.log(error)
         })
-    },[])
+    },[controller.user])
 
     useEffect(() => {
         async function x () {
           const paginatedTransactions = paginate(currentPage);
           const rows = await paginatedTransactions.map((recepiant) => ({
+            action: (
+              <Actions email={recepiant.email} />
+            ),
             NAME: (
               <SoftTypography variant="caption" color="secondary" fontWeight="medium">
                 {recepiant.name.toUpperCase() + " " + recepiant.lastName.toUpperCase()}
@@ -78,15 +85,27 @@ function Receptiants () {
         }
       }
 
-    function Actions() {
-        return (
+    function Actions({email}) {
+      
+      const handleDelete = () => {
+        deletRecepiant(controller.user.id, email).then(async (user) => {
+          await setUser(dispatch, user)
+          SweetAlert("success", "All good", "Recepiant Deleted")
+        }).catch(error => {
+          SweetAlert("warning", "Ooops", "Something went wrong")
+        })
+      }
+
+      return (
           <SoftBox display="flex" gap={2}>
-            <SoftBox onClick={() => {}}>
-              {/*<Visibility />*/}
+            <SoftBox onClick={handleDelete}>
+              <Tooltip title="Delete recepiant" placement="top">
+                <Delete />
+              </Tooltip>
             </SoftBox>
           </SoftBox>
-        );
-      }
+      );
+    }
 
     return(
         <DashboardLayout>
@@ -115,7 +134,7 @@ function Receptiants () {
                 >
                     <Table
                     columns={columns2}
-                    rows={rows2.map((item) => ({ ...item, action: <Actions /> }))}
+                    rows={rows2.map((item) => ({ ...item }))}
                     />
                 </SoftBox>
             </Card>

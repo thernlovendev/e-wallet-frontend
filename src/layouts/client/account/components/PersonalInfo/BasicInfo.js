@@ -10,6 +10,7 @@ import { verifyAddress } from "apis/request";
 import { setCurrencys } from "context";
 import { setUser } from "context";
 import { SweetAlert } from "apis/sweetAlert";
+import { editProfileInfo } from "apis/request";
 
 export default function BasicInfo() {
   const [controller, dispatch] = useSoftUIController();
@@ -20,11 +21,26 @@ export default function BasicInfo() {
     state : controller.user.address.state,
     postal_code : controller.user.address.postal_code
   });
+  const [name, setName] = useState (controller.user.name);
+  const [lastName, setLastName] = useState (controller.user.lastName);
+  const [email, setEmail] = useState(controller.user.email);
 
   const handleFormChange = (e) => {
     setFormDataAddress({ ...formDataAddress, [e.target.name]: e.target.value });
     console.log(formDataAddress)
   };
+
+  const handleFormChange2 = async (e) => {
+    if(e.target.name === "name"){
+      setName(e.target.value);
+    }
+    if(e.target.name === "lastName"){
+      setLastName(e.target.value)
+    }
+    if(e.target.name === "email"){
+      setEmail(e.target.value)
+    }
+  }
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -38,6 +54,23 @@ export default function BasicInfo() {
     }
     x()
   }, [controller.user])
+
+  const handleEditInfo = () => {
+    const data = {
+      name: name,
+      lastName: lastName,
+      email: email
+    }
+    editProfileInfo(controller.user.id, data).then(async (user) => {
+      console.log(user)
+      await setUser(dispatch, user)
+      SweetAlert("success", "Good", "Info edited");
+    }).catch(error => {
+      if(error === 404){
+        SweetAlert("warning", "Ooops", "Something went wrong");
+      }
+    })
+  }
 
   const handleConfirmAddress = async () => {
     try {
@@ -96,7 +129,7 @@ export default function BasicInfo() {
                 First Name
               </SoftTypography>
             </SoftBox>
-            <SoftInput type="text" placeholder={controller.user.name}/>
+            <SoftInput name="name" type="text" placeholder={controller.user.name} onChange={handleFormChange2}/>
           </SoftBox>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -106,12 +139,11 @@ export default function BasicInfo() {
                 Last Name
               </SoftTypography>
             </SoftBox>
-            <SoftInput type="text" placeholder={controller.user.lastName} />
+            <SoftInput name="lastName" type="text" placeholder={controller.user.lastName} onChange={handleFormChange2}/>
           </SoftBox>
         </Grid>
       </Grid>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={4} md={6}>
 {/*          <SoftBox mb={1}>
             <SoftBox ml={0.5}>
               <SoftTypography component="label" variant="caption" fontWeight="bold">
@@ -124,6 +156,16 @@ export default function BasicInfo() {
             </select>
           </SoftBox>*/}
           <Grid item xs={12} md={6}>
+            <SoftBox mb={2}>
+              <SoftBox ml={0.5}>
+                <SoftTypography component="label" variant="caption" fontWeight="bold">
+                  ID Number
+                </SoftTypography>
+              </SoftBox>
+              <SoftInput type="number" value={controller.user.idNumber} onChange={handleFormChange2}/>
+            </SoftBox>
+          </Grid>
+          <Grid item xs={12} md={6}>
           <SoftBox mb={2}>
             <SoftBox ml={0.5}>
               <SoftTypography component="label" variant="caption" fontWeight="bold">
@@ -132,7 +174,6 @@ export default function BasicInfo() {
             </SoftBox>
             <SoftInput type="number" placeholder={controller.user.phone} />
           </SoftBox>
-        </Grid>
         </Grid>
       </Grid>
       <Grid container spacing={3}>
@@ -146,7 +187,7 @@ export default function BasicInfo() {
                       Year
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" value={controller.user.dob.year} />
+                  <SoftInput name="year" type="text" value={controller.user.dob.year} onChange={handleFormChange2}/>
                 </SoftBox>
               </div>
               <div class="col-sm-4 col-3">
@@ -157,7 +198,7 @@ export default function BasicInfo() {
                       Month
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" value={controller.user.dob.month} />
+                  <SoftInput name="month" type="text" value={controller.user.dob.month} onChange={handleFormChange2} />
                 </SoftBox>
               </div>
               <div class="col-sm-3 col-4">
@@ -168,7 +209,7 @@ export default function BasicInfo() {
                       Day
                     </SoftTypography>
                   </SoftBox>
-                  <SoftInput type="text" value={controller.user.dob.day} />
+                  <SoftInput name="day" type="text" value={controller.user.dob.day} onChange={handleFormChange2}/>
                 </SoftBox>
               </div>
             </SoftBox>
@@ -182,7 +223,7 @@ export default function BasicInfo() {
                 Email
               </SoftTypography>
             </SoftBox>
-            <SoftInput type="text" placeholder={controller.user.email} />
+            <SoftInput name="email" type="text" placeholder={controller.user.email} onChange={handleFormChange2}/>
           </SoftBox>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -197,7 +238,7 @@ export default function BasicInfo() {
         </Grid>
       </Grid>
       <SoftBox my={2}>
-          <SoftButton color="info" onClick={handleConfirmAddress}>
+          <SoftButton color="info" onClick={handleEditInfo}>
             Save Your Changes
           </SoftButton>
         </SoftBox>
@@ -306,7 +347,6 @@ export default function BasicInfo() {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={4} md={6}>
       {/*          <SoftBox mb={1}>
               <SoftBox ml={0.5}>
                 <SoftTypography component="label" variant="caption" fontWeight="bold">
@@ -319,16 +359,25 @@ export default function BasicInfo() {
               </select>
             </SoftBox>*/}
             <Grid item xs={12} md={6}>
+              <SoftBox mb={2}>
+                <SoftBox ml={0.5}>
+                  <SoftTypography component="label" variant="caption" fontWeight="bold">
+                    ID Number
+                  </SoftTypography>
+                </SoftBox>
+                <SoftInput type="number" value={controller.user.idNumber}/>
+              </SoftBox>
+            </Grid>
+            <Grid item xs={12} md={6}>
             <SoftBox mb={2}>
               <SoftBox ml={0.5}>
                 <SoftTypography component="label" variant="caption" fontWeight="bold">
                   Phone Number
                 </SoftTypography>
               </SoftBox>
-              <SoftInput type="number" value={controller.user.phone} />
+              <SoftInput type="text" value={controller.user.phone} />
             </SoftBox>
             </Grid>
-          </Grid>
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={5} md={5}>

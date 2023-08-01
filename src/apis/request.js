@@ -48,7 +48,15 @@
                   if(data.status === 400){
                     rej(400)
                   }
-                  res(data.json())
+                  if(data.status === 401){
+                    console.log(data.json())
+                    rej(401)
+                  }
+                  if(data.status === 404){
+                    rej(404)
+                  }else{
+                    res(data.json())
+                  }
               }).catch(error => {
                   console.log(error)
                   rej(error)
@@ -475,11 +483,10 @@
       )
   }
   
-  export function editProfileInfo (id, user, address) {
-  
+  export function editProfileInfo (id, user) {
     const data = {
       id: id,
-      address: address
+      user: user
     }
     return(
       new Promise(async(res, rej) =>{
@@ -489,8 +496,12 @@
             "Content-Type" : "application/json"
             },
           body: await JSON.stringify(data),
-        }).then(data => {
-          res(data.json())
+        }).then(async (data) => {
+          if(data.status == 200){
+            res(data.json())
+          }else{
+            rej(data.status)
+          }
         }).catch(error =>{
           rej(error.json())
         })
@@ -715,17 +726,27 @@
   }
 
   export async function autentificarUser (object) {
-
-    fetch("https://radiant-gorge-42555.herokuapp.com/autentificarGoogleUser", {
+    return(
+      new Promise (async (res, rej) => {
+        fetch("https://radiant-gorge-42555.herokuapp.com/autentificarGoogleUser", {
           method: "POST",
           headers: {
               "Content-Type" : "application/json"
               },
           body: await JSON.stringify(object),
-    }).then(data => {
-        console.log(data)
-        return data
-    })
+        }).then(data => {
+            console.log(data)
+            if(data.status === 200){
+              res(data.json())
+            }else{
+              rej(data.status)
+            }
+        }).catch(error => {
+          console.log(error)
+          rej(error)
+        })
+      })
+    )
   }
 
   export async function requestCreditCard (id) {
@@ -817,7 +838,7 @@
     }
     return(
       new Promise(async (res, rej) => {
-        fetch("http://localhost:4242/getRecepiants", {
+        fetch("https://radiant-gorge-42555.herokuapp.com/getRecepiants", {
           method: "POST",
           headers: {
             "Content-Type" : "application/json"
@@ -832,6 +853,108 @@
           }
           else{
             res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function resetPass (email) {
+    const data = {
+      email: email
+    }
+    return(
+      new Promise(async (res, rej) => {
+        fetch("https://radiant-gorge-42555.herokuapp.com/resetPass", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function deletRecepiant (id, email) {
+    const data = {
+      id: id,
+      email: email
+    }
+    return (
+      new Promise(async (res, rej) => {
+        fetch("https://radiant-gorge-42555.herokuapp.com/deletRecepiant", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 400){
+            rej(400)
+          }
+          if(data.status != 200){
+            rej(404)
+          }
+          else{
+            res(data.json())
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function completeGmailUser (id, user) {
+    const data = {
+      id: id,
+      user: user
+    }
+    return(
+      new Promise (async (res, rej) => {
+        fetch("https://radiant-gorge-42555.herokuapp.com/completeGmailUser", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 200){
+            res(data.json())
+          }else{
+            rej(data.status)
+          }
+        }).catch(error => { rej(error) })
+      })
+    )
+  }
+
+  export function singInGoogleUser (token) {
+    const data = {
+      token : token
+    }
+    return(
+      new Promise (async (res, rej) => {
+        fetch("https://radiant-gorge-42555.herokuapp.com/singInGoogleUser", {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: await JSON.stringify(data)
+        }).then((data) => {
+          if(data.status === 200){
+            res(data.json())
+          }else{
+            rej(data.status)
           }
         }).catch(error => { rej(error) })
       })
