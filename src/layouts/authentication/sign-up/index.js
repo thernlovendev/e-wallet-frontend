@@ -257,7 +257,7 @@ function SignUp() {
                 value={formData.phone}
                 onChange={handleFormChange}
               />
-            </SoftBox> */}
+  </SoftBox> .*/}
             <PhoneInput style={{margin:"10px 0",}} placeholder="Enter phone number" value={phnValue} onChange={setPhnValue} />
             <SoftBox mb={2}>
               <SoftInput
