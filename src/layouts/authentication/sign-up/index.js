@@ -15,10 +15,10 @@ import { setUser } from "context";
 import { useSoftUIController } from "context";
 import { SweetAlert } from "apis/sweetAlert";
 import { SignUpR } from "apis/request";
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-import Select from 'react-select'
-import countryList from 'react-select-country-list'
+// import "react-phone-number-input/style.css";
+// import PhoneInput from "react-phone-number-input";
+// import Select from 'react-select'
+// import countryList from 'react-select-country-list'
 
 function SignUp() {
   const [controller, dispatch] = useSoftUIController();
@@ -258,7 +258,7 @@ function SignUp() {
                 onChange={handleFormChange}
               />
   </SoftBox> .*/}
-            <PhoneInput style={{margin:"10px 0",}} placeholder="Enter phone number" value={phnValue} onChange={setPhnValue} />
+            {/* <PhoneInput style={{margin:"10px 0",}} placeholder="Enter phone number" value={phnValue} onChange={setPhnValue} /> */}
             <SoftBox mb={2}>
               <SoftInput
                 type="email"
@@ -291,7 +291,7 @@ function SignUp() {
               <option value="GB">United Kingdom</option>
               <option value="US">The United States</option>
             </select> */}
-            <Select style={{margin:"10px 0",}} options={options} value={countryValue} onChange={changeHandler}/>
+            {/* <Select style={{margin:"10px 0",}} options={options} value={countryValue} onChange={changeHandler}/> */}
             <SoftBox display="flex" alignItems="center">
               <Checkbox checked={formData.agreement} onChange={handleSetAgremment} />
               <SoftTypography

@@ -7,6 +7,7 @@ import "assets/css/nucleo-svg.css";
 import "assets/css/soft-ui-dashboard.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 // Soft UI Dashboard React Context Provider
 import { SoftUIControllerProvider } from "context";
 
