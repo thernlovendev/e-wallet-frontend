@@ -15,20 +15,11 @@ import { setUser } from "context";
 import { useSoftUIController } from "context";
 import { SweetAlert } from "apis/sweetAlert";
 import { SignUpR } from "apis/request";
-// import "react-phone-number-input/style.css";
-// import PhoneInput from "react-phone-number-input";
-// import Select from 'react-select'
-// import countryList from 'react-select-country-list'
 
 function SignUp() {
   const [controller, dispatch] = useSoftUIController();
   const navegar = useNavigate();
-  const [phnValue, setPhnValue] = useState();
-  const [countryValue, setCountryValue] = useState('')
-  const options = useMemo(() => countryList().getData(), [])
-  const changeHandler = value => {
-    setCountryValue(value)
-  }
+ 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -249,7 +240,7 @@ function SignUp() {
                 onChange={handleFormChange}
               />
             </SoftBox>
-            {/* <SoftBox mb={2}>
+            <SoftBox mb={2}>
               <SoftInput
                 type="phone"
                 placeholder="Phone n°, Include your country code"
@@ -257,8 +248,8 @@ function SignUp() {
                 value={formData.phone}
                 onChange={handleFormChange}
               />
-  </SoftBox> .*/}
-            {/* <PhoneInput style={{margin:"10px 0",}} placeholder="Enter phone number" value={phnValue} onChange={setPhnValue} /> */}
+  </SoftBox> 
+        
             <SoftBox mb={2}>
               <SoftInput
                 type="email"
@@ -286,12 +277,12 @@ function SignUp() {
                 onChange={handleFormChange}
               />
             </SoftBox>
-            {/* <select id="country-select" name="country" onChange={handleFormChange}>
+            <select id="country-select" name="country" onChange={handleFormChange}>
               <option value="">Select a country</option>
               <option value="GB">United Kingdom</option>
               <option value="US">The United States</option>
-            </select> */}
-            {/* <Select style={{margin:"10px 0",}} options={options} value={countryValue} onChange={changeHandler}/> */}
+            </select>
+   
             <SoftBox display="flex" alignItems="center">
               <Checkbox checked={formData.agreement} onChange={handleSetAgremment} />
               <SoftTypography
