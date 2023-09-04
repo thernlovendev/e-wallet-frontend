@@ -225,6 +225,7 @@ function PaymentMethod() {
         await setAction("withdraw")
         toggleWithdraw();
         toggleConfirmCode();
+        SweetAlert("success", "All good", "Money sent to your bank account")
       }).catch(error => {
         if(error === 400){
           SweetAlert("warning", "Ooops", "Not enough founds")
@@ -378,9 +379,31 @@ function PaymentMethod() {
             <div class="row mt-2">
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option value="GBP" >GBP</option>
-                  <option value="USD" >USD</option>
+                <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
+                  <option value="GBP" >GBP</option>
+                  <option value="AED" >AED</option>
+                  <option value="AUD" >AUD</option>
+                  <option value="BGN" >BGN</option>
+                  <option value="BRL" >BRL</option>
+                  <option value="CAD" >CAD</option>
+                  <option value="CHF" >CHF</option>
+                  <option value="CZK" >CZK</option>
+                  <option value="DKK" >DKK</option>
+                  <option value="HKD" >HKD</option>
+                  <option value="HRK" >HRK</option>
+                  <option value="HUF" >HUF</option>
+                  <option value="INR" >INR</option>
+                  <option value="JPY" >JPY</option>
+                  <option value="MXN" >MXN</option>
+                  <option value="MYR" >MYR</option>
+                  <option value="NOK" >NOK</option>
+                  <option value="NZD" >NZD</option>
+                  <option value="PLN" >PLN</option>
+                  <option value="RON" >RON</option>
+                  <option value="SEK" >SEK</option>
+                  <option value="SGD" >SGD</option>
+                  <option value="THB" >THB</option>
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
@@ -428,9 +451,34 @@ function PaymentMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                  <option value="GBP" >GBP</option>
+                  {/* <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
+                  <option value="EUR" >EUR</option> */}
+                    <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
+                  <option value="GBP" >GBP</option>
+                  <option value="AED" >AED</option>
+                  <option value="AUD" >AUD</option>
+                  <option value="BGN" >BGN</option>
+                  <option value="BRL" >BRL</option>
+                  <option value="CAD" >CAD</option>
+                  <option value="CHF" >CHF</option>
+                  <option value="CZK" >CZK</option>
+                  <option value="DKK" >DKK</option>
+                  <option value="HKD" >HKD</option>
+                  <option value="HRK" >HRK</option>
+                  <option value="HUF" >HUF</option>
+                  <option value="INR" >INR</option>
+                  <option value="JPY" >JPY</option>
+                  <option value="MXN" >MXN</option>
+                  <option value="MYR" >MYR</option>
+                  <option value="NOK" >NOK</option>
+                  <option value="NZD" >NZD</option>
+                  <option value="PLN" >PLN</option>
+                  <option value="RON" >RON</option>
+                  <option value="SEK" >SEK</option>
+                  <option value="SGD" >SGD</option>
+                  <option value="THB" >THB</option>
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
@@ -478,9 +526,34 @@ function PaymentMethod() {
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
                 <select class="form-control" name="currency" onChange={handleChange} >
-                  <option value="GBP" >GBP</option>
+                  {/* <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
+                  <option value="EUR" >EUR</option> */}
+                    <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
+                  <option value="GBP" >GBP</option>
+                  <option value="AED" >AED</option>
+                  <option value="AUD" >AUD</option>
+                  <option value="BGN" >BGN</option>
+                  <option value="BRL" >BRL</option>
+                  <option value="CAD" >CAD</option>
+                  <option value="CHF" >CHF</option>
+                  <option value="CZK" >CZK</option>
+                  <option value="DKK" >DKK</option>
+                  <option value="HKD" >HKD</option>
+                  <option value="HRK" >HRK</option>
+                  <option value="HUF" >HUF</option>
+                  <option value="INR" >INR</option>
+                  <option value="JPY" >JPY</option>
+                  <option value="MXN" >MXN</option>
+                  <option value="MYR" >MYR</option>
+                  <option value="NOK" >NOK</option>
+                  <option value="NZD" >NZD</option>
+                  <option value="PLN" >PLN</option>
+                  <option value="RON" >RON</option>
+                  <option value="SEK" >SEK</option>
+                  <option value="SGD" >SGD</option>
+                  <option value="THB" >THB</option>
 { /*                 <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>

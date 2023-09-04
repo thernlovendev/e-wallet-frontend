@@ -11,6 +11,7 @@ import { setCurrencys } from "context";
 import { setUser } from "context";
 import { SweetAlert } from "apis/sweetAlert";
 import { editProfileInfo } from "apis/request";
+import ImageUpload from "./UploadImage";
 
 export default function BasicInfo() {
   const [controller, dispatch] = useSoftUIController();
@@ -323,7 +324,9 @@ export default function BasicInfo() {
               </SoftBox>
             </AppBar>
           </Grid>
+         
         </SoftBox>
+        <ImageUpload></ImageUpload>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <SoftBox mb={2}>

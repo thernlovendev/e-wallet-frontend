@@ -53,11 +53,31 @@ function Accounts({ title, bgColor, icon }) {
               <div class="form-group col-12">
                 <label for="">Select Currency</label>
                 <select class="form-control" id="exampleFormControlSelect1">
-                  <option>USD</option>
-                  <option>EUR</option>
-                  <option>GBP</option>
-                  <option>SEK</option>
-                  <option>SGD</option>
+                <option value="USD" >USD</option>
+                  <option value="EUR" >EUR</option>
+                  <option value="GBP" >GBP</option>
+                  <option value="AED" >AED</option>
+                  <option value="AUD" >AUD</option>
+                  <option value="BGN" >BGN</option>
+                  <option value="BRL" >BRL</option>
+                  <option value="CAD" >CAD</option>
+                  <option value="CHF" >CHF</option>
+                  <option value="CZK" >CZK</option>
+                  <option value="DKK" >DKK</option>
+                  <option value="HKD" >HKD</option>
+                  <option value="HRK" >HRK</option>
+                  <option value="HUF" >HUF</option>
+                  <option value="INR" >INR</option>
+                  <option value="JPY" >JPY</option>
+                  <option value="MXN" >MXN</option>
+                  <option value="MYR" >MYR</option>
+                  <option value="NOK" >NOK</option>
+                  <option value="NZD" >NZD</option>
+                  <option value="PLN" >PLN</option>
+                  <option value="RON" >RON</option>
+                  <option value="SEK" >SEK</option>
+                  <option value="SGD" >SGD</option>
+                  <option value="THB" >THB</option>
                 </select>
               </div>
             </div>

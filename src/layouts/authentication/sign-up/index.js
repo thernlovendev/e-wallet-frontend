@@ -15,12 +15,14 @@ import { setUser } from "context";
 import { useSoftUIController } from "context";
 import { SweetAlert } from "apis/sweetAlert";
 import { SignUpR } from "apis/request";
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import countryList from 'react-select-country-list'
+import Select from 'react-select'
 
 function SignUp() {
   const [controller, dispatch] = useSoftUIController();
   const navegar = useNavigate();
- 
-
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -34,6 +36,14 @@ function SignUp() {
     birthMonth: "",
     birthYear: "",
   });
+  const [phoneValue, setPhoneValue] = useState();
+  const [countryvalue, setCountryValue] = useState('')
+  const options = useMemo(() => countryList().getData(), [])
+
+  const changeHandler = value => {
+    setCountryValue(value)
+  }
+
 
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,8 +63,9 @@ function SignUp() {
         formData.password,
         formData.name,
         formData.lastName,
-        formData.phone,
-        formData.country,
+        phoneValue,
+        // formData.country,
+        countryvalue,
         formData.birthDay,
         formData.birthMonth,
         formData.birthYear
@@ -94,14 +105,27 @@ function SignUp() {
       return false;
     }
 
-    if (!formData.phone) {
+    // if (!formData.phone) {
+    //   errors.phone = "Phone is required";
+    //   errors.error = true;
+    //   await SweetAlert("warning", "Ooops", "Phone is required");
+    //   return false;
+    // }
+    if (!phoneValue) {
       errors.phone = "Phone is required";
       errors.error = true;
       await SweetAlert("warning", "Ooops", "Phone is required");
       return false;
     }
 
-    if (!formData.country) {
+    // if (!formData.country) {
+    //   errors.country = "Country is required";
+    //   errors.error = true;
+    //   await SweetAlert("warning", "Ooops", "Country is required");
+    //   return false;
+    // }
+
+     if (!countryvalue) {
       errors.country = "Country is required";
       errors.error = true;
       await SweetAlert("warning", "Ooops", "Country is required");
@@ -241,13 +265,18 @@ function SignUp() {
               />
             </SoftBox>
             <SoftBox mb={2}>
-              <SoftInput
+              {/* <SoftInput
                 type="phone"
                 placeholder="Phone n°, Include your country code"
                 name="phone"
                 value={formData.phone}
                 onChange={handleFormChange}
-              />
+              /> */}
+              <PhoneInput
+  international
+  defaultCountry="US"
+  value={phoneValue}
+  onChange={setPhoneValue}/>
   </SoftBox> 
         
             <SoftBox mb={2}>
@@ -277,12 +306,16 @@ function SignUp() {
                 onChange={handleFormChange}
               />
             </SoftBox>
-            <select id="country-select" name="country" onChange={handleFormChange}>
+            {/* <select id="country-select" name="country" onChange={handleFormChange}>
               <option value="">Select a country</option>
               <option value="GB">United Kingdom</option>
               <option value="US">The United States</option>
-            </select>
-   
+            </select> */}
+            
+           
+            <SoftBox mb={2}>
+            <Select options={options} value={countryvalue} onChange={changeHandler} />
+            </SoftBox>
             <SoftBox display="flex" alignItems="center">
               <Checkbox checked={formData.agreement} onChange={handleSetAgremment} />
               <SoftTypography

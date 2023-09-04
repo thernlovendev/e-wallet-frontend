@@ -45,6 +45,8 @@ function SignIn() {
       SingIn(singData.email, singData.password).then(async (data) =>{
         console.log("sda")
         console.log(data.user)
+        localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("accountID", data.user.stripe.accountID);
         if(data.user.stripeAccount){
           await setUser(dispatch, data.user)
           await setCurrencys(dispatch, data.currencys)

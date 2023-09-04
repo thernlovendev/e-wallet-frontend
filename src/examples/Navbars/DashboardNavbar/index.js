@@ -148,7 +148,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
             <SoftBox color={light ? "white" : "inherit"}>
               <Link
                 to="/authentication/sign-in"
-                onClick={() => setLayout(dispatch, "authentication")}
+                onClick={() => {setLayout(dispatch, "authentication");localStorage.removeItem("uerName");}}
               >
                 <IconButton sx={navbarIconButton} size="small">
                   <Icon
@@ -163,10 +163,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     fontWeight="medium"
                     color={light ? "white" : "dark"}
                   >
-                    Sign out
+                    {localStorage.getItem("userName")}
+                    
                   </SoftTypography>
                 </IconButton>
+                
               </Link>
+              
               <IconButton
                 size="small"
                 color="inherit"
@@ -197,6 +200,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
               </IconButton>
               {renderMenu()}
+              <p style={{fontSize:10}}>Wallet: {localStorage.getItem("accountID")}</p>
             </SoftBox>
           </SoftBox>
         )}

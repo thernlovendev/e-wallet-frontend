@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 auth.useDeviceLanguage();
-const googleIn = new GoogleAuthProvider()
+const googleIn = new GoogleAuthProvider();
 const FaceIn = new FacebookAuthProvider();
 const twitterIn = new TwitterAuthProvider();
 
