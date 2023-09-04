@@ -29,7 +29,6 @@ import { userTransfer2 } from "apis/request";
 import { confirmCodeTransfer } from "apis/request";
 import { withdraw2 } from "apis/request";
 import { confirmCodeWithdraw } from "apis/request";
-import SelectCurrency from '../currency'
 
 function AccountMethod() {
   const [controller, dispatch] = useSoftUIController();
