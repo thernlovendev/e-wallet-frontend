@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b2003926.css",
+    "main.js": "/static/js/main.2da5b7ee.js",
+    "static/media/curved14.jpg": "/static/media/curved14.12c9ea54425c4f1bc1d7.jpg",
+    "static/media/curved-6.jpg": "/static/media/curved-6.71ee1d1cc8196ed2126b.jpg",
+    "static/media/nucleo-icons.svg": "/static/media/nucleo-icons.95fa360c1c73431a0f9a.svg",
+    "static/media/visa.png": "/static/media/visa.71c0d5e9e2aaee42e4c3.png",
+    "static/media/mastercard.png": "/static/media/mastercard.27fca3e7637a9458fb64.png",
+    "static/media/team-3.jpg": "/static/media/team-3.b75146da5bfdf9d8ae61.jpg",
+    "static/media/logoP.png": "/static/media/logoP.6631561031fa4c485b02.png",
+    "static/media/team-4.jpg": "/static/media/team-4.a1e1c29f1b839ddae393.jpg",
+    "static/media/nucleo-icons.eot": "/static/media/nucleo-icons.19abb5402a664606b14c.eot",
+    "static/media/nucleo-icons.ttf": "/static/media/nucleo-icons.d6a66724e7a7bf1bba65.ttf",
+    "static/media/team-2.jpg": "/static/media/team-2.e725aef8c892cb21f262.jpg",
+    "static/media/nucleo-icons.woff": "/static/media/nucleo-icons.c82c9b7c40130b7116d3.woff",
+    "static/media/nucleo-icons.woff2": "/static/media/nucleo-icons.cba267483aa6a7cb6e33.woff2",
+    "static/media/logo-spotify.svg": "/static/media/logo-spotify.3f055cde07c024fb2b73063b46416f1b.svg",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.b2003926.css",
+    "static/js/main.2da5b7ee.js"
+  ]
+}
