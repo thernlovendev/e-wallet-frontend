@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import SoftBox from 'components/SoftBox'
 import SoftTypography from 'components/SoftTypography'
 import { Grid } from '@mui/material'
@@ -8,6 +8,10 @@ import { completeGmailUser } from 'apis/request';
 import { setUser } from 'context';
 import SoftButton from 'components/SoftButton';
 import SoftInput from 'components/SoftInput';
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import countryList from 'react-select-country-list'
+import Select from 'react-select'
 
 export default function About({onSave}) {
 
@@ -23,6 +27,15 @@ export default function About({onSave}) {
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
     const [country, setCountry] = useState("GB");
+
+    const [phoneValue, setPhoneValue] = useState();
+    const [countryvalue, setCountryValue] = useState('')
+    const options = useMemo(() => countryList().getData(), [])
+  
+    const changeHandler = value => {
+      setCountryValue(value)
+    }
+  
 
     const handleFormChange = (e) => {
         if (e.target.name === "name") {
@@ -43,9 +56,9 @@ export default function About({onSave}) {
         if (e.target.name === "cPass") {
           setCPass(e.target.value);
         }
-        if(e.target.name === "phone"){
-            setPhone(e.target.value)
-        }
+        // if(e.target.name === "phone"){
+        //     setPhone(e.target.value)
+        // }
         if (e.target.name === "day") {
             setDay(e.target.value);
         }
@@ -55,9 +68,9 @@ export default function About({onSave}) {
         if (e.target.name === "year") {
           setYear(e.target.value);
         }
-        if (e.target.name === "country") {
-            setCountry(e.target.value);
-        }
+        // if (e.target.name === "country") {
+        //     setCountry(e.target.value);
+        // }
       };
 
 
@@ -75,7 +88,7 @@ export default function About({onSave}) {
             day.trim() === "" ||
             month.trim() === "" ||
             year.trim() === "" ||
-            country.trim() === ""
+            countryvalue.trim() === ""
         ) {
           // Al menos un campo está vacío
             SweetAlert("warning", "Ooops", "Complete all the fields")
@@ -118,8 +131,8 @@ export default function About({onSave}) {
             day: day,
             month: month,
             year: year,
-            country: country,
-            phone: phone
+            country: countryvalue,
+            phone: phoneValue
         }
         completeGmailUser(controller.user.id, data).then(async (user) => {
             await setUser(dispatch, user)
@@ -220,15 +233,22 @@ export default function About({onSave}) {
                     </Grid>*/}
                 </Grid>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6} xl={6}>
+                    <Grid item xs={12} sm={6} xl={6} style={{marginTop:'30px'}}>
                         <label>Phone</label>
-                        <input
+                        {/* <input
                             class="multisteps-form__input form-control"
                             type="phone"
                             placeholder="4455667788"
                             name="phone"
                             onChange={handleFormChange}
-                        />
+                        /> */}
+                        <PhoneInput
+                international
+                defaultCountry="US"
+                value={phoneValue}
+                onChange={setPhoneValue}
+                style={{fontSize:'16pt'}}
+                />
                     </Grid>
                 </Grid>
                 <Grid container spacing={3}>
@@ -266,10 +286,11 @@ export default function About({onSave}) {
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6} xl={6}>
                         <label>Country</label>
-                            <select name="country" class="form-select" id="country-select" onChange={handleFormChange}>
+                            {/* <select name="country" class="form-select" id="country-select" onChange={handleFormChange}>
                                 <option value="GB">United Kingdom</option>
                                 <option value="US">The United States</option>
-                            </select>
+                            </select> */}
+                            <Select options={options} value={countryvalue} onChange={changeHandler} />
                     </Grid>
                 </Grid>
             </SoftBox>

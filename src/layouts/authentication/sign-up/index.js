@@ -273,10 +273,11 @@ function SignUp() {
                 onChange={handleFormChange}
               /> */}
               <PhoneInput
-  international
-  defaultCountry="US"
-  value={phoneValue}
-  onChange={setPhoneValue}/>
+                international
+                defaultCountry="US"
+                value={phoneValue}
+                onChange={setPhoneValue}
+                />
   </SoftBox> 
         
             <SoftBox mb={2}>

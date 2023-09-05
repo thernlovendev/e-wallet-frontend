@@ -39,6 +39,7 @@ import createRoutes from "routes";
 import NewUser from "layouts/client/activationProcess";
 import ForgetPass from "layouts/authentication/forget";
 import FullProcess from "layouts/client/activationProcess/FullProcess";
+import "./styles.css";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
