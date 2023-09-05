@@ -23,6 +23,8 @@ function Socials2() {
 
   function singGmail () {
     SingInGoogle2().then(async (data) => {
+        localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("accountID", data.user.stripe.accountID);
         if(data.user.stripeAccount){
             await setUser(dispatch, data.user)
             await setCurrencys(dispatch, data.currencys)
