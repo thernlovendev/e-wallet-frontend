@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.8a29daed.css",
-    "main.js": "/static/js/main.7f780ec8.js",
+    "main.js": "/static/js/main.63ff2cbb.js",
     "static/media/curved14.jpg": "/static/media/curved14.12c9ea54425c4f1bc1d7.jpg",
     "static/media/curved-6.jpg": "/static/media/curved-6.71ee1d1cc8196ed2126b.jpg",
     "static/media/nucleo-icons.svg": "/static/media/nucleo-icons.95fa360c1c73431a0f9a.svg",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.8a29daed.css",
-    "static/js/main.7f780ec8.js"
+    "static/js/main.63ff2cbb.js"
   ]
 }

@@ -360,7 +360,7 @@ function AccountMethod() {
             </div>
             <div class="row mt-2">
               <div class="form-group col-2">
-                <select name="currency" class="form-control" onChange={handleChange}>
+                <select name="currency" class="form-control" onChange={handleChange} value={currency}>
                 {/* {controller.user.amount.map(item => {
                     return(
                       <option value={item.currency}>{item.currency}</option>
@@ -441,7 +441,7 @@ function AccountMethod() {
             <div class="row mt-2">
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
-                <select name="currency" class="form-control" onChange={handleChange}>
+                <select name="currency" class="form-control" onChange={handleChange} value={currency}>
                 {/* {controller.user.amount.map(item => {
                     return(
                       <option value={item.currency}>{item.currency}</option>
@@ -518,7 +518,7 @@ function AccountMethod() {
             <div class="row mt-4">
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
-                <select class="form-control" name="currency" onChange={handleChange} >
+                <select class="form-control" name="currency" onChange={handleChange} value={currency}>
                 {/* {controller.user.amount.map(item => {
                     return(
                       <option value={item.currency}>{item.currency}</option>
