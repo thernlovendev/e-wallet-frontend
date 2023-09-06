@@ -57,13 +57,19 @@ function PaymentMethod() {
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
   const [index, setIndex] = useState(0);
-
+  const [ moneyAmount, setMoneyAmount ] = useState(0);
 
   useEffect(() => {
     const toSearch = currency + controller.user.currency;
     const index = controller.currencys.changes.findIndex(element => element.currencys === toSearch);
     const index2 = controller.user.amount.findIndex(element => element.currency === currency)
-    setIndex(index2);
+    if(index2 !== -1){
+      setIndex(index2);
+      setMoneyAmount(controller.user.amount[index2].amount.toFixed(2));
+    }else{
+      setMoneyAmount(0);
+    }
+    
     if (index !== -1) {
       const localAmount2 = amount * controller.currencys.changes[index].rate;
       setLocalAmount(localAmount2.toFixed(2));
@@ -379,6 +385,11 @@ function PaymentMethod() {
             <div class="row mt-2">
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })} */}
                 <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -407,7 +418,7 @@ function PaymentMethod() {
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -451,6 +462,11 @@ function PaymentMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })} */}
                   {/* <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option> */}
@@ -482,7 +498,7 @@ function PaymentMethod() {
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -526,6 +542,11 @@ function PaymentMethod() {
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
                 <select class="form-control" name="currency" onChange={handleChange} >
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })} */}
                   {/* <option value="GBP" >GBP</option>
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option> */}
@@ -557,7 +578,7 @@ function PaymentMethod() {
 { /*                 <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input

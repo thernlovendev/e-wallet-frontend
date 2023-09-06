@@ -45,6 +45,7 @@ function AccountMethod() {
   const [localAmount, setLocalAmount] = useState(0);
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState(controller.user.currency);
+  // const [currency, setCurrency] = useState();
   const [cardNumber, setCardNumber] = useState(0);
   const [CVC, setCVC] = useState(0);
   const [month, setMonth] = useState(0);
@@ -55,12 +56,22 @@ function AccountMethod() {
   const [confirmCode, setConfirmCode] = useState(0);
   const [destination, setDestination] = useState("");
   const [index, setIndex] = useState(0);
-
+  const [ moneyAmount, setMoneyAmount ] = useState(0);
+  // console.log("cur", currency);
   useEffect(() => {
     const toSearch = currency + controller.user.currency;
     const index = controller.currencys.changes.findIndex(element => element.currencys === toSearch);
     const index2 = controller.user.amount.findIndex(element => element.currency === currency)
-    setIndex(index2);
+
+    if(index2 !== -1){
+      setIndex(index2);
+      setMoneyAmount(controller.user.amount[index2].amount.toFixed(2));
+    }else{
+      setMoneyAmount(0);
+    }
+    // console.log("index2222", index2);
+    // console.log("moneyAmount", moneyAmount);
+    
     if (index !== -1) {
       const localAmount2 = amount * controller.currencys.changes[index].rate;
       setLocalAmount(localAmount2.toFixed(2));
@@ -122,6 +133,11 @@ function AccountMethod() {
     if(controller.user.stripe.customerID.length < 1){
       SweetAlert("warning", "Ooops", "You must finish the activation proccess, go to account and then to personal information for more info")
     }else{
+      // console.log("data", controller.user.id);
+      // console.log("amount", amount);
+      // console.log("local", localAmount);
+      // console.log("currency", currency);
+      // console.log("select", selectedCard);
         await addMoney2(controller.user.id, amount, selectedCard, currency, localAmount).then(async (user) => {
           await setAction("charge")
           console.log(action)
@@ -345,6 +361,12 @@ function AccountMethod() {
             <div class="row mt-2">
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })}
+                  <option value="AUD">AUD</option> */}
                   <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -376,7 +398,7 @@ function AccountMethod() {
                   <option>SGD</option>*/}
                 </select>
                 {/* <SelectCurrency value={'USD'} onCurrencySelected={onSelectedCurrency} /> */}
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -420,7 +442,12 @@ function AccountMethod() {
             <label for="">Choose your withdraw</label>
               <div class="form-group col-2">
                 <select name="currency" class="form-control" onChange={handleChange}>
-                <option value="USD" >USD</option>
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })} */}
+                  <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
                   <option value="AED" >AED</option>
@@ -448,7 +475,7 @@ function AccountMethod() {
 {/*                  <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input
@@ -492,6 +519,11 @@ function AccountMethod() {
             <label for="exampleFormControlSelect1">Amount and currency to transfer</label>
               <div class="form-group col-2">
                 <select class="form-control" name="currency" onChange={handleChange} >
+                {/* {controller.user.amount.map(item => {
+                    return(
+                      <option value={item.currency}>{item.currency}</option>
+                    )
+                  })} */}
                 <option value="USD" >USD</option>
                   <option value="EUR" >EUR</option>
                   <option value="GBP" >GBP</option>
@@ -517,10 +549,11 @@ function AccountMethod() {
                   <option value="SEK" >SEK</option>
                   <option value="SGD" >SGD</option>
                   <option value="THB" >THB</option>
+
 { /*                 <option>SEK</option>
                   <option>SGD</option>*/}
                 </select>
-                <label>{controller.user.amount[index].amount.toFixed(2)}  </label>
+                <label>{moneyAmount}  </label>
               </div>
               <div class="form-group col-10">
                 <input
